@@ -17,6 +17,8 @@ class IndexController extends BaseController {
      */
     public function getIndex() {
 
+        if(Auth::user())
+            return View::make('pages.main');
         return View::make('pages.index');
 
     }

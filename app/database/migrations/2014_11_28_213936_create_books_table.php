@@ -24,8 +24,8 @@ class CreateBooksTable extends Migration {
             $table->string('title');
             $table->integer('owner_id')->unsigned(); # Important! FK has to be unsigned because the PK it will reference is auto-incrementing
             $table->string('author');
-            $table->string('cover');
             $table->string('isbn');
+            $table->string('cover');
             $table->string('ready_to_swap');
 
             # Define foreign keys...

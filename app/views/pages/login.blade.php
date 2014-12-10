@@ -9,7 +9,7 @@ Log in
 Log in
 @stop
 
-@section('content')
+@section('body')
 @if(Session::get('flash_message'))
 <div class='flash-message'>{{ Session::get('flash_message') }}</div>
 @endif
@@ -19,12 +19,13 @@ Log in
 {{ Form::open(array('url' => '/login')) }}
 
 {{ Form::label('email') }}
-{{ Form::text('email','sam@gmail.com') }}
+{{ Form::text('email',null,array('class'=>'form-control','t_small'=>'Small')) }}
 
-{{ Form::label('password') }} (sam)
-{{ Form::password('password') }}
+{{ Form::label('password') }}
+{{ Form::password('password',array('class'=>'form-control','t_small'=>'Small')) }}
+<br>
 
-{{ Form::submit('Submit') }}
+{{ Form::submit('Submit',array('class'=>'btn btn-success')) }}
 
 {{ Form::close() }}
 

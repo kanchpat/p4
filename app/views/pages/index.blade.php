@@ -1,4 +1,4 @@
-@extends('layouts._master')
+@extends('layouts._main')
 
 @section('title')
 Welcome to Book Swapper

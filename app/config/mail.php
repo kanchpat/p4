@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => null, 'name' => null),
+	'from' => array('address' => 'ksanthanakrishnan@g.harvard.edu' , 'name' => 'Book Buddy'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-	'username' => null,
+	'username' => 'postmaster@sandbox36e4145155fa40c6999efecf21beef79.mailgun.org',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return array(
 	|
 	*/
 
-	'password' => null,
+	'password' => '9952def2019d064bd3c07d3a3e8c5ce6',
 
 	/*
 	|--------------------------------------------------------------------------

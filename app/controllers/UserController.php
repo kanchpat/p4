@@ -51,10 +51,12 @@ class UserController extends BaseController {
                 ->withInput()
                 ->withErrors($validator);
         }
+        $confirmation_code = str_random(30);
 
         $user = new User;
         $user->email    = Input::get('email');
         $user->password = Hash::make(Input::get('password'));
+        $user->confirmation_code = $confirmation_code;
 
         try {
             $user->save();
@@ -65,10 +67,12 @@ class UserController extends BaseController {
                 ->withInput();
         }
 
-        # Log in
-        Auth::login($user);
+        Mail::send('emails.verify', compact('confirmation_code'), function($message) {
+            $message->to(Input::get('email'), 'user')
+                ->subject('Verify your email address');
+        });
 
-        return Redirect::to('/')->with('flash_message', 'Welcome to Bookbuddy!');
+        return Redirect::to('/')->with('flash_message', 'Welcome to Bookbuddy verify with the confirmation code!');
 
     }
 
@@ -79,7 +83,7 @@ class UserController extends BaseController {
     public function getLogin() {
         if(Auth::check())
         {
-            return Redirect::intended('/')->with('flash_message', 'Welcome Back ');
+            return Redirect::intended('pages.main')->with('flash_message', 'Welcome Back ');
         }
         return View::make('pages.login');
 
@@ -91,11 +95,14 @@ class UserController extends BaseController {
      */
     public function postLogin() {
 
-        $credentials = Input::only('email', 'password');
+        $credentials = [
+            'email' => Input::get('email'),
+            'password' => Input::get('password'),
+            'confirmed' => '1'];
 
         # Note we don't have to hash the password before attempting to auth - Auth::attempt will take care of that for us
         if (Auth::attempt($credentials, $remember = false)) {
-            return Redirect::intended('/')->with('flash_message', 'Welcome Back!');
+            return Redirect::intended('/main')->with('flash_message', 'Welcome Back!');
         }
         else {
             return Redirect::to('/login')
@@ -120,4 +127,30 @@ class UserController extends BaseController {
 
     }
 
+    public function confirm($confirmation_code)
+    {
+        if( ! $confirmation_code)
+        {
+            return Redirect::to('/login')
+                ->with('flash_message', 'Confirmation code does not exist')
+                ->withInput();        }
+
+        $user = User::whereConfirmationCode($confirmation_code)->first();
+
+        if ( ! $user)
+        {
+            return Redirect::to('/login')
+                ->with('flash_message', 'User not found for this confirmation code')
+                ->withInput();
+        }
+
+        $user->confirmed = 1;
+        $user->confirmation_code = null;
+        $user->save();
+
+        Auth::login($user);
+
+        return View::make('pages.owner_info_add');
+
+    }
 }

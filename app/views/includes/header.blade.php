@@ -13,20 +13,21 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/about">About</a></li>
                 <li><a href="/contact">Contact</a>
-                <li><a href="/signup">Signup</a>
-                <li><a href="/login">Login</a>
-                <li><a href="/logout">Log Out</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">My Library Management <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="/book/list">Show My Library</a></li>
+                        <li><a href="/book/list">Show Books I own</a></li>
+                        <li><a href="/book/loan">Show Books I have rented</a></li>
                         <li><a href="#">Show My Messages</a></li>
                         <li class="divider"></li>
                         <li class="dropdown-header">Your books update</li>
                         <li><a href="/book/create">Add Book</a></li>
-                        <li><a href="#">Remove Book</a></li>
+                        <li><a href="/book/rent">Browse Books available to Rent</a></li>
                     </ul>
                 </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/logout">Log Out</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>

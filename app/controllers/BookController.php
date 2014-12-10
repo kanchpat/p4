@@ -28,40 +28,45 @@ class BookController extends \BaseController {
 
     }
 
+    public function postSearch() {
 
-    /**
-     * Display all books
-     * @return View
-     */
-    public function getIndex() {
+        $value = Input::get('Delete');
+        var_dump($value);
+        if(is_array($value))
+        {
+            if(Book::delete_book($value))
+                return Redirect::to ('/book/list')->with('flash_message','Book Deleted');
+            else
+                return Redirect::to ('/book/list')->with('error_message','Book Delete , error');
 
-        # Format and Query are passed as Query Strings
-        $format = Input::get('format', 'html');
-
-        $query  = Input::get('query');
-
-        $books = Book::search($query);
-
-        # Decide on output method...
-        # Default - HTML
-        if($format == 'html') {
-            return View::make('book_index')
-                ->with('books', $books)
-                ->with('query', $query);
         }
-        # JSON
-        elseif($format == 'json') {
-            return Response::json($books);
-        }
-        # PDF (Coming soon)
-        elseif($format == 'pdf') {
-            return "This is the pdf (Coming soon).";
-        }
+        $rent_value = Input::get('AvailableforRent');
 
+        if(is_array($rent_value))
+        {
+            if(Book::change_rent($rent_value))
+                return Redirect::to ('/book/list')->with('flash_message','Swap value updated');
+            else
+                return Redirect::to ('/book/list')->with('error_message','Book swap , error');
+         }
 
     }
 
+    public function getRent() {
 
+
+        $books = Book::rent(Auth::user()->id);
+        return View::make('pages.book_rent')->with('books',$books);
+
+    }
+
+    public function getLoan() {
+
+
+        $books = Book::rent(Auth::user()->id);
+        return View::make('pages.book_loan')->with('books',$books);
+
+    }
     /**
      * Show the "Add a book form"
      * @return View
@@ -78,39 +83,41 @@ class BookController extends \BaseController {
      * @return Redirect
      */
     public function postCreate() {
+        $value = Input::get('select');
+        foreach($value as $bookInfo){
+            $book = new Book();
 
-        # Instantiate the book model
-        $book = new Book();
+            $values = Helper::multiexplode(array(":",","),$bookInfo,6);
+            $book->title = $values[1];
+            $book->author = $values[3];
+            $book->isbn = $values[5];
+            $book->cover = 'http://'.$values[8];
+            $book->owner_id = Auth::user()->id;
+            $book->ready_to_swap = 'n';
 
-        $book->fill(Input::all());
+            $book->save();
 
-        # Magic: Eloquent
-        $book->save();
-
-        return Redirect::to ('/')->with('flash_message','Book added');
- //       return Redirect::action('BookController@getIndex')->with('flash_message','Your book has been added.');
-
+            return Redirect::to ('/book/create')->with('flash_message','Book added');
+        }
     }
 
 
-    /**
-     * Show the "Edit a book form"
-     * @return View
-     */
-    public function getEdit($id) {
+    public function showGoogleBooks(){
 
+        $books = Helper::showGoogleBooks();
+
+        return View::make('pages.book_google_add')->with('books',$books);
+    }
+
+    public function getEdit($id) {
         try {
             $book    = Book::findOrFail($id);
-            $authors = Author::getIdNamePair();
         }
         catch(exception $e) {
-            return Redirect::to('/book')->with('flash_message', 'Book not found');
+            return Redirect::to('/book/list')->with('flash_message', 'Book not found');
         }
-
-        return View::make('book_edit')
-            ->with('book', $book)
-            ->with('authors', $authors);
-
+             return View::make('pages.book_edit')
+                 ->with('book', $book);
     }
 
 
@@ -131,68 +138,9 @@ class BookController extends \BaseController {
         $book->fill(Input::all());
         $book->save();
 
-        return Redirect::action('BookController@getIndex')->with('flash_message','Your changes have been saved.');
+        return Redirect::action('BookController@getSearch')->with('flash_message','Your changes have been saved.');
 
     }
-
-
-    /**
-     * Process book deletion
-     *
-     * @return Redirect
-     */
-    public function postDelete() {
-
-        try {
-            $book = Book::findOrFail(Input::get('id'));
-        }
-        catch(exception $e) {
-            return Redirect::to('/book/')->with('flash_message', 'Could not delete book - not found.');
-        }
-
-        Book::destroy(Input::get('id'));
-
-        return Redirect::to('/book/')->with('flash_message', 'Book deleted.');
-
-    }
-
-
-    /**
-     * Process a book search
-     * Called w/ Ajax
-     */
-    public function postSearch() {
-
-        if(Request::ajax()) {
-
-            $query  = Input::get('query');
-
-            # We're demoing two possible return formats: JSON or HTML
-            $format = Input::get('format');
-
-            # Do the actual query
-            $books  = Book::search($query);
-
-            # If the request is for JSON, just send the books back as JSON
-            if($format == 'json') {
-                return Response::json($books);
-            }
-            # Otherwise, loop through the results building the HTML View we'll return
-            elseif($format == 'html') {
-
-                $results = '';
-                foreach($books as $book) {
-                    # Created a "stub" of a view called book_search_result.php; all it is is a stub of code to display a book
-                    # For each book, we'll add a new stub to the results
-                    $results .= View::make('book_search_result')->with('book', $book)->render();
-                }
-
-                # Return the HTML/View to JavaScript...
-                return $results;
-            }
-        }
-    }
-
 
 
 }

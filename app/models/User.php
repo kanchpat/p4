@@ -29,4 +29,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->hasMany('Book');
     }
 
+    public function owner() {
+        return $this->hasOne('User');
+    }
+
  }

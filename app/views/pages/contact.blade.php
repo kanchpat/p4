@@ -10,9 +10,6 @@ Welcome to Book Buddy Contact Page
 
 @stop
 
-@section('content')
-<!-- Fixed navbar -->
-@stop
 @section('header')
       Welcome to Book Swapper
 @stop

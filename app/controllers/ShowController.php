@@ -27,4 +27,10 @@ class ShowController extends BaseController {
 
     }
 
+    public function getMain() {
+
+        return View::make('pages.main');
+
+    }
+
 }

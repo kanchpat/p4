@@ -4,10 +4,7 @@
 
     <title>@yield('title','Book Swapper')</title>
     @include('includes.head')
-
     @yield('head')
-
-
 </head>
 <body>
 @include('includes.header')
@@ -19,24 +16,28 @@
 </div>
 
 @if(Session::has('errors'))
-    <div class='alert alert-danger'> @yield('errormsg')</div>
+<div class='alert alert-danger'> @yield('errormsg')</div>
 @endif
 <div class='alert-warning'> @yield('flashmsg') </div>
 
-     <p> @yield ('parainfo') </p>
-
-<div class="text-center">
-@yield('body')
+<div class="form-group col-md-6 column">
+    @yield('form')
 </div>
 
-<div class="form-group col-xs-6 col-sm-6 col-md-6">
-            @yield('form')
+<div class="container">
+    <div class="panel panel-info">
+        <!-- Default panel contents -->
+        <div class="panel-heading">@yield('tableheader')</div>
+        <div class="panel-body">
+            <p>@yield('tabledesc') </p>
+        </div>
+
+        <!-- Table -->
+        <table class="table table-bordered table-striped table-condensed table-hover table-nonfluid">
+            @yield('tabledata')
+        </table>
+    </div>
 </div>
-
-  <div class="logininfo">
-      @yield('loginfo')
-  </div>
-
 
 @include('includes.footer')
 <!-- Bootstrap core JavaScript

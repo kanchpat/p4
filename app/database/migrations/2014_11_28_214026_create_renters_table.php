@@ -13,7 +13,7 @@ class CreateRentersTable extends Migration {
 	public function up()
 	{
 
-        Schema::create('renter', function($table) {
+        Schema::create('renters', function($table) {
 
             # AI, PK
             $table->increments('id');
