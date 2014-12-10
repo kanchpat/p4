@@ -8,8 +8,8 @@ return array(
             'driver'    => 'mysql',
             'host'      => 'localhost',
             'database'  => 'bookbuddy',
-            'username'  => 'root',
-            'password'  => 'length-area-wall8@',
+            'username'  => $_ENV['DATABASE_USER'],
+            'password'  => $_ENV['DATABASE_PASSWORD'],
         ),
 
     ),
