@@ -28,7 +28,7 @@ class Book extends Eloquent {
      * Search among books, authors and tags
      * @return Collection
      */
-    public static function search($query) {
+    public static function searchWithOwnerId($query) {
 
        # If there is a query, search the library with that query
         if($query) {
@@ -50,15 +50,13 @@ class Book extends Eloquent {
         return $books;
     }
 
-    public static function rent($query) {
+    public static function searchWithBookId($query) {
 
         # If there is a query, search the library with that query
         if($query) {
 
             # Eager load tags and author
-            $books = Book::where('owner_id','!=',$query)
-                -> where('ready_to_swap','=','n')
-                ->get();
+            $books = Book::where('id','=',$query)->get();
 
             # Note on what `use` means above:
             # Closures may inherit variables from the parent scope.
@@ -73,6 +71,28 @@ class Book extends Eloquent {
 
         return $books;
     }
+
+    public static function rent($query){
+            # If there is a query, search the library with that query
+            if($query) {
+
+                # Eager load tags and author
+                $rentInfo = Book::where('owner_id','!=',$query)
+                    ->get();
+
+                # Note on what `use` means above:
+                # Closures may inherit variables from the parent scope.
+                # Any such variables must be passed to the `use` language construct.
+
+            }
+            # Otherwise, just fetch all books
+            else {
+                # Eager load tags and author
+                $rentInfo = Book::all();
+            }
+
+            return $rentInfo;
+        }
 
     public static function delete_book($value) {
 
@@ -111,5 +131,22 @@ public static function change_rent($value) {
 
     return true;
 }
+
+    public static function make_rent($id) {
+
+            try {
+                $book = Book::findOrFail($id);
+            }
+            catch(exception $e) {
+                return false;
+            }
+
+            if($book->ready_to_swap == 'Y')
+                $book->ready_to_swap='N';
+            else
+                $book->ready_to_swap='Y';
+            $book->save();
+        return true;
+    }
 
 }

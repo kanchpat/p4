@@ -37,9 +37,17 @@ You currently own the below books.
 
 @foreach($books as $book)
 <tr>
+    @if($book['ready_to_swap'] == 'Y')
     <td>{{ Form::checkbox('Delete[]',$book['id']) }}</td>
+    @else
+    <td>{{ Form::checkbox('Delete[]', $book['id'],false,array('disabled') ) }}</td>
+    @endif
     <td>{{{ $book['title'] }}}</td>
+    @if($book['ready_to_swap'] == 'Y')
     <td>{{ Form::checkbox('AvailableforRent[]', $book['id'],$book['ready_to_swap'] ) }}</td>
+    @else
+    <td>{{ Form::checkbox('AvailableforRent[]', $book['id'],false,array('disabled') ) }}</td>
+    @endif
     <td>  <a href='/book/edit/{{$book['id']}}'>Edit</a></td>
 </tr>
 @endforeach

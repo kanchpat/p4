@@ -25,12 +25,12 @@ Maximum available Rentals are 5
 <th> Date Issued </th>
 <th> Date Return </th>
 <th> Initiate Return</th>
-@foreach($books as $book)
+@foreach($renters as $renter)
 <tr>
     <td>{{{ $book['title'] }}}</td>
-    <td></td>
-    <td></td>
-    <td>{{ Form::checkbox('BookReturn','id') }}</td>
+    <td>{{{ $renter['rental_date'] }}}</td>
+    <td>{{{ $renter['return_date'] }}}</td>
+    <td>{{ Form::checkbox('BookReturn[]',$renter['book_id']) }}</td>
 </tr>
 @endforeach
 @stop

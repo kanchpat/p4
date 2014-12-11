@@ -16,14 +16,12 @@ class BookController extends \BaseController {
     }
 
 
-    /**
-     * Process the searchform
-     * @return View
+    /** List all the books you own
      */
     public function getSearch() {
 
 
-        $books = Book::search(Auth::user()->id);
+        $books = Book::searchWithOwnerId(Auth::user()->id);
         return View::make('pages.book_search')->with('books',$books);
 
     }
@@ -31,7 +29,7 @@ class BookController extends \BaseController {
     public function postSearch() {
 
         $value = Input::get('Delete');
-        var_dump($value);
+
         if(is_array($value))
         {
             if(Book::delete_book($value))
@@ -60,13 +58,15 @@ class BookController extends \BaseController {
 
     }
 
-    public function getLoan() {
+    public function postRent() {
 
 
         $books = Book::rent(Auth::user()->id);
-        return View::make('pages.book_loan')->with('books',$books);
+        return View::make('pages.book_rent')->with('books',$books);
 
     }
+
+
     /**
      * Show the "Add a book form"
      * @return View
@@ -142,5 +142,4 @@ class BookController extends \BaseController {
 
     }
 
-
-}
+ }
