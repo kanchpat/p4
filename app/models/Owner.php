@@ -15,4 +15,26 @@ class Owner extends Eloquent {
 
     }
 
+    public static function getName($query) {
+
+        # If there is a query, search the library with that query
+        if($query) {
+
+            $owners = Owner::where('user_id','=',$query)->first();
+
+        }
+        # Otherwise, just fetch all books
+        else {
+            # Eager load tags and author
+            $owners=null;
+        }
+        if(!is_null($owners))
+        {
+            $name = $owners->first_name.$owners->last_name;
+            return $name;
+        }
+        else{
+        return null;
+        }
+    }
  }

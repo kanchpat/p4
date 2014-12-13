@@ -11,8 +11,8 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/about">About</a></li>
-                <li><a href="/contact">Contact</a>
+                <li class="active"><a href="/about">How it works</a></li>
+                <li><a href="/contact">FAQ</a>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">My Library Management <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">

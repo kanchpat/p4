@@ -9,9 +9,9 @@ Log in
 Log in
 @stop
 
-@section('body')
-@if(Session::get('flash_message'))
-<div class='flash-message'>{{ Session::get('flash_message') }}</div>
+@section('flashmsg')
+@if(Session::has('flash_message'))
+{{ Session::get('flash_message') }}
 @endif
 @stop
 
@@ -25,7 +25,8 @@ Log in
 {{ Form::password('password',array('class'=>'form-control','t_small'=>'Small')) }}
 <br>
 
-{{ Form::submit('Submit',array('class'=>'btn btn-success')) }}
+{{ Form::submit('Submit',array('class'=>'btn btn-success','name'=>'action')) }}
+{{ Form::submit('Forgot Password',array('class'=>'btn btn-success','name'=>'action')) }}
 
 {{ Form::close() }}
 

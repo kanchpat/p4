@@ -41,8 +41,30 @@ Route::get('/book/rent','BookController@getRent');
 Route::post('/book/rent','RenterController@postRent');
 
 Route::get('/book/loan','RenterController@getLoan');
+Route::post('/book/loan','RenterController@postLoan');
+
 
 Route::get('register/verify/{confirmationCode}', [
     'as' => 'confirmation_path',
     'uses' => 'UserController@confirm'
 ]);
+
+Route::get('password/reset', array(
+    'uses' => 'RemindersController@getRemind',
+    'as' => 'pages.remind'
+));
+
+Route::post('password/reset', array(
+    'uses' => 'RemindersController@postRemind',
+    'as' => 'pages.request'
+));
+
+Route::get('password/reset/{token}', array(
+    'uses' => 'RemindersController@getReset',
+    'as' => 'pages.reset'
+));
+
+Route::post('password/reset/{token}', array(
+    'uses' => 'RemindersController@postReset',
+    'as' => 'pages.update'
+));

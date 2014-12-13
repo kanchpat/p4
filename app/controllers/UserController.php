@@ -72,7 +72,7 @@ class UserController extends BaseController {
                 ->subject('Verify your email address');
         });
 
-        return Redirect::to('/')->with('flash_message', 'Welcome to Bookbuddy verify with the confirmation code!');
+        return Redirect::to('/')->with('flash_message', 'Welcome to Bookbuddy verify with the confirmation code sent to your email!');
 
     }
 
@@ -85,7 +85,7 @@ class UserController extends BaseController {
         {
             return Redirect::intended('pages.main')->with('flash_message', 'Welcome Back ');
         }
-        return View::make('pages.login');
+        return View::make('pages.login')->with('flash_message','Email Id does not exist');
 
     }
 
@@ -95,6 +95,8 @@ class UserController extends BaseController {
      */
     public function postLogin() {
 
+        if( Input::get('action') == 'Submit')
+        {
         $credentials = [
             'email' => Input::get('email'),
             'password' => Input::get('password'),
@@ -102,12 +104,23 @@ class UserController extends BaseController {
 
         # Note we don't have to hash the password before attempting to auth - Auth::attempt will take care of that for us
         if (Auth::attempt($credentials, $remember = false)) {
-            return Redirect::intended('/main')->with('flash_message', 'Welcome Back!');
+            $name = Owner::getName(Auth::user()->id);
+          if(!is_null($name))
+                return Redirect::intended('/main')->with('flash_message', 'Welcome Back!')
+                                                  ->with('name',$name);
         }
         else {
-            return Redirect::to('/login')
+ /*           return Redirect::to('/login')
                 ->with('flash_message', 'Log in failed; please try again.')
-                ->withInput();
+                ->withInput();*/
+            return View::make('pages.login')->with('flash_message','Email Id does not exist');
+             }
+        }
+        else
+        {/*
+            $credentials = array('email' => Input::get('email'), 'password' => Input::get('password'));
+            return Password::remind($credentials);*/
+            return View::make('pages.remind')->withInput('email',Input::get('email'));
         }
 
     }
@@ -153,4 +166,5 @@ class UserController extends BaseController {
         return View::make('pages.owner_info_add');
 
     }
+
 }

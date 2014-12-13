@@ -22,8 +22,7 @@ Welcome to Book Swapper
 @endif
 @stop
 @section('loginfo')
-<!-- Fixed navbar -->
-<!--{{{ isset(Auth::user()->email) ? 'Hello,' + Auth::user()->email : 'Log In' }}}-->
-    Hello  {{{Auth::user()->email}}}
+Hello
+{{{isset($name) ? $name : Auth::user()->email }}}
 @stop
 

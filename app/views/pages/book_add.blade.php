@@ -12,15 +12,10 @@ Add a new book
 
 
 @section('form')
-
 {{ Form::open(array('action' => 'BookController@showGoogleBooks','files'=>true)) }}
-
 {{ Form::label('title','Title') }}
 {{ Form::text('title'); }}
-
-{{ Form::submit('Find Book'); }}
-
+{{ Form::submit('Find Book with Title/Author',array('class'=>'btn btn-success')); }}
 {{ Form::close() }}
-
 @stop
 

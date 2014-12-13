@@ -20,7 +20,7 @@
 @endif
 <div class='alert-warning'> @yield('flashmsg') </div>
 
-<div class="form-group col-md-6 column">
+<div class="form-group center_div">
     @yield('form')
 </div>
 

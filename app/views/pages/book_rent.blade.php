@@ -17,6 +17,7 @@ Selection of books available for Rental
 
 @section('form')
 {{ Form::open(array('url' => '/book/rent')) }}
+{{ Form::submit('Rent now',array('class'=>'btn btn-success')); }}
 @stop
 
 @section('tabledata')
@@ -28,6 +29,5 @@ Selection of books available for Rental
     <td>{{ Form::checkbox('BookRent[]',$book['id']) }}</td>
 </tr>
 @endforeach
-{{ Form::submit('Rent now'); }}
 {{ Form::close() }}
 @stop

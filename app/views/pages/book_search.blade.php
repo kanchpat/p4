@@ -17,14 +17,18 @@ No results
 @endif
 @stop
 
+@section('form')
+{{ Form::open(array('url' => '/book/list')) }}
+{{ Form::submit('Update Book Info',array('class'=>'btn btn-success')); }}
+@stop
+
 @section('tableheader')
 My Library
 @stop
 
 @section('tabledesc')
-You currently own the below books.
-    You can delete books if you dont want to have them is swap
-    You can make the books available for rent. All the books are initially made not available.
+    You currently own the below books. <br>
+    You can delete books if you no longer have the book or You can make the books available for rent<br>
     You can also edit the details of any book.
 @stop
 
@@ -33,7 +37,6 @@ You currently own the below books.
 <th> Title of the book </th>
 <th> Available for Rent </th>
 <th> Edit</th>
-{{ Form::open(array('url' => '/book/list')) }}
 
 @foreach($books as $book)
 <tr>
@@ -51,10 +54,8 @@ You currently own the below books.
     <td>  <a href='/book/edit/{{$book['id']}}'>Edit</a></td>
 </tr>
 @endforeach
-<div class='form-group'>
-    {{ Form::submit('Save'); }}
-</div>
 {{ Form::close() }}
+
 @stop
 
 

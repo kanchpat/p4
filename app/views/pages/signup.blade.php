@@ -32,3 +32,9 @@ Min 8 alphanumeric characters
 {{ $message }}
 @endforeach
 @stop
+
+@section('flashmsg')
+@if(Session::has('flash_message'))
+{{ Session::get('flash_message') }}
+@endif
+@stop

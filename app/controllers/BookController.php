@@ -51,8 +51,6 @@ class BookController extends \BaseController {
     }
 
     public function getRent() {
-
-
         $books = Book::rent(Auth::user()->id);
         return View::make('pages.book_rent')->with('books',$books);
 
@@ -93,7 +91,7 @@ class BookController extends \BaseController {
             $book->isbn = $values[5];
             $book->cover = 'http://'.$values[8];
             $book->owner_id = Auth::user()->id;
-            $book->ready_to_swap = 'n';
+            $book->ready_to_swap = 'Y';
 
             $book->save();
 

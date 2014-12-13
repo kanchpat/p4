@@ -35,8 +35,28 @@ class RenterController extends \BaseController {
 
     public function getLoan() {
         $renter = Renter::rentInfo(Auth::user()->id);
-        return View::make('pages.book_loan')->with('renter',$renter);
+    //    var_dump($renter);
+        return View::make('pages.book_loan')->with('renters',$renter);
 
+    }
+
+    public function postLoan() {
+        if(Input::get('action') == 'Past Rental')
+        {
+            $renter = Renter::pastRentInfo(Auth::user()->id);
+            return View::make('pages.past_rental')->with('renters',$renter);
+        }
+        else
+        {
+            $val= Input::get('BookReturn');
+            if(is_array($val))
+                $msg = Renter::initiateReturn($val);
+            else
+                $msg = "No Initiate Books clicked";
+            $renter = Renter::rentInfo(Auth::user()->id);
+            return View::make('pages.book_loan')->with('renters',$renter)
+                ->with('flash_message',$msg);
+        }
     }
 
 }

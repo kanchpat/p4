@@ -13,8 +13,7 @@ Add a new book
 @section('form')
 
 {{ Form::open(array('action' => 'BookController@postCreate','files'=>true)) }}
-{{Form::submit('Add Book'); }}
-
+{{Form::submit('Add Book',array('class'=>'btn btn-success')); }}
 @stop
 
 @section('tableheader')
