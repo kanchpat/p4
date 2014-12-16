@@ -16,6 +16,15 @@ class RenterController extends \BaseController {
     }
 
 
+    public function getRent() {
+        $renters = Renter::availableRentInfo(Auth::user()->id);
+        if(is_null($renters))
+           return Redirect::to ('/book/rent')->with('error_message','Issue accessing the book rental');
+        else
+           return View::make('pages.book_rent')->with('renters',$renters);
+
+    }
+
     /**
      * Process the "Add a book form"
      * @return Redirect
@@ -26,9 +35,12 @@ class RenterController extends \BaseController {
         {
         foreach($value as $bookInfo){
             Renter::createRent($bookInfo);
-            Book::make_rent($bookInfo);
-            return Redirect::to ('/book/rent')->with('flash_message','Book Rent');
+            Message::createMessageForInitiateRental($bookInfo);
+                    }
+            return Redirect::to ('/book/rent')->with('flash_message','Book Rent Initiated. Wait for the owner to get back, meanwhile proceed with the next selection');
         }
+        else{
+            return Redirect::to ('/book/rent')->with('flash_message','Pick a selection');
         }
     }
 

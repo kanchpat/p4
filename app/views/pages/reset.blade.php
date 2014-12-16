@@ -1,12 +1,12 @@
-@extends('layouts._master')
+@extends('layouts._main')
 
 @section('title')
-Log in
+Reset Password
 @stop
 
 
 @section('header')
-Log in
+Reset Password
 @stop
 
 @section('flashmsg')
@@ -17,7 +17,7 @@ Log in
 
 @section('errormsg')
 @if (Session::has('error_message'))
-{{ trans(Session::get('reason')) }}
+    {{ Session::get('error_message')}}
 @endif
 @stop
 

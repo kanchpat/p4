@@ -4,9 +4,9 @@
 Books
 @stop
 
-@section('body')
-@if(sizeof($books) == 0)
-No results
+@section('flashmsg')
+@if(Session::has('flash_message'))
+{{ Session::get('flash_message') }}
 @endif
 @stop
 
@@ -23,10 +23,12 @@ Selection of books available for Rental
 @section('tabledata')
 <th> Title of the book </th>
 <th> Rent this </th>
-@foreach($books as $book)
+@foreach($renters as $renter)
 <tr>
+    @foreach($renter->books as $book)
     <td>{{{ $book['title'] }}}</td>
     <td>{{ Form::checkbox('BookRent[]',$book['id']) }}</td>
+    @endforeach
 </tr>
 @endforeach
 {{ Form::close() }}

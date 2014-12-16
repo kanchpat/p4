@@ -8,6 +8,18 @@ Log in
 Signup
 @stop
 
+@section('errormsg')
+@foreach($errors->all() as $message)
+{{ $message }}
+@endforeach
+@stop
+
+@section('flashmsg')
+@if(Session::has('flash_message'))
+{{ Session::get('flash_message') }}
+@endif
+@stop
+
 @section('form')
 {{ Form::open(array('url' => '/signup')) }}
 
@@ -27,14 +39,3 @@ Min 8 alphanumeric characters
 @stop
 
 
-@section('errormsg')
-@foreach($errors->all() as $message)
-{{ $message }}
-@endforeach
-@stop
-
-@section('flashmsg')
-@if(Session::has('flash_message'))
-{{ Session::get('flash_message') }}
-@endif
-@stop

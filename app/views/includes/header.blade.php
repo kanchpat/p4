@@ -18,7 +18,7 @@
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="/book/list">Show Books I own</a></li>
                         <li><a href="/book/loan">Show Books I have rented</a></li>
-                        <li><a href="#">Show My Messages</a></li>
+                        <li><a href="/msgs/list">Show My Messages</a></li>
                         <li class="divider"></li>
                         <li class="dropdown-header">Your books update</li>
                         <li><a href="/book/create">Add Book</a></li>

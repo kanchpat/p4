@@ -26,7 +26,7 @@ class CreateBooksTable extends Migration {
             $table->string('author');
             $table->string('isbn');
             $table->string('cover');
-            $table->string('ready_to_swap');
+            $table->string('ready_to_swap')->default('N');
 
             # Define foreign keys...
             $table->foreign('owner_id')->references('id')->on('users');

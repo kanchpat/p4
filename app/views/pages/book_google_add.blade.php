@@ -34,7 +34,7 @@ Selection of books available for that Title. Can't find the book you have, try c
     <td>{{{ $book['author'] }}}</td>
     <td>{{{ $book['isbn'] }}}</td>
     <td> <img src='{{ $book['cover'] }}' ></td>
-    <td>{{ Form::checkbox('select[]',$book) }}</td>
+    <td>{{ Form::checkbox('select_book[]',$book) }}</td>
 </tr>
 @endforeach
 @endif

@@ -72,7 +72,7 @@ class RemindersController extends Controller {
 				return Redirect::back()->with('error_message', Lang::get($response));
 
 			case Password::PASSWORD_RESET:
-				return Redirect::to('/')->with('flash_message','Password reset successfully');
+				return Redirect::to('/index')->with('flash_message','Password reset successfully');
 		}
 	}
 

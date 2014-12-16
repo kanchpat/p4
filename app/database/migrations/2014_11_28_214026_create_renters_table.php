@@ -25,7 +25,7 @@ class CreateRentersTable extends Migration {
             $table->integer('renter_id')->unsigned(); # Important! FK has to be unsigned because the PK it will reference is auto-incrementing
             $table->date('rental_date');
             $table->date('return_date');
-            $table->char('return_ind');
+            $table->char('return_ind')->default(' ');
 
             # Define foreign keys...
             $table->foreign('renter_id')->references('id')->on('users');

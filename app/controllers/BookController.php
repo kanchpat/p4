@@ -42,7 +42,7 @@ class BookController extends \BaseController {
 
         if(is_array($rent_value))
         {
-            if(Book::change_rent($rent_value))
+            if(Book::changeRentForBookID($rent_value))
                 return Redirect::to ('/book/list')->with('flash_message','Swap value updated');
             else
                 return Redirect::to ('/book/list')->with('error_message','Book swap , error');
@@ -50,25 +50,8 @@ class BookController extends \BaseController {
 
     }
 
-    public function getRent() {
-        $books = Book::rent(Auth::user()->id);
-        return View::make('pages.book_rent')->with('books',$books);
-
-    }
-
-    public function postRent() {
 
 
-        $books = Book::rent(Auth::user()->id);
-        return View::make('pages.book_rent')->with('books',$books);
-
-    }
-
-
-    /**
-     * Show the "Add a book form"
-     * @return View
-     */
     public function getCreate() {
 
         return View::make('pages.book_add')->with('owners', Auth::user()->id);
@@ -76,12 +59,23 @@ class BookController extends \BaseController {
     }
 
 
-    /**
-     * Process the "Add a book form"
-     * @return Redirect
-     */
     public function postCreate() {
-        $value = Input::get('select');
+        $rules = array(
+            'select_book' => 'required',
+        );
+
+        # Step 2)
+        $validator = Validator::make(Input::all(), $rules);
+
+        # Step 3
+        if($validator->fails()) {
+
+            return Redirect::to('/book/create')
+                ->with('flash_message', 'Problem with the input, fix and try again')
+                ->withInput()
+                ->withErrors($validator);
+        }
+        $value = Input::get('select_book');
         foreach($value as $bookInfo){
             $book = new Book();
 
@@ -94,16 +88,30 @@ class BookController extends \BaseController {
             $book->ready_to_swap = 'Y';
 
             $book->save();
-
-            return Redirect::to ('/book/create')->with('flash_message','Book added');
         }
+        return Redirect::to ('/book/create')->with('flash_message','Book added');
+
     }
 
 
     public function showGoogleBooks(){
 
-        $books = Helper::showGoogleBooks();
+        $rules = array(
+            'search_text' => 'required|min:8',
+        );
 
+        # Step 2)
+        $validator = Validator::make(Input::all(), $rules);
+
+        # Step 3
+        if($validator->fails()) {
+
+            return Redirect::to('/book/create')
+                ->with('flash_message', 'Problem with the input, fix and try again')
+                ->withInput()
+                ->withErrors($validator);
+        }
+        $books = Helper::showGoogleBooks();
         return View::make('pages.book_google_add')->with('books',$books);
     }
 

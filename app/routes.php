@@ -37,7 +37,12 @@ Route::post('/book/edit', 'BookController@postEdit');
 Route::get('/book/list', 'BookController@getSearch');
 Route::post('/book/list', 'BookController@postSearch');
 
-Route::get('/book/rent','BookController@getRent');
+Route::get('/msgs/list', 'MessageController@getList');
+Route::post('/msgs/list', 'MessageController@postList');
+
+Route::get('/msgs/approval','MessageController@getAddress');
+
+Route::get('/book/rent','RenterController@getRent');
 Route::post('/book/rent','RenterController@postRent');
 
 Route::get('/book/loan','RenterController@getLoan');

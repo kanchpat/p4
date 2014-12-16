@@ -27,6 +27,6 @@ Welcome to Book Buddy Contact Page
         <li> I would like to have a tag for books so that it could be filtered based on the genre</li>
     </ol>
 
-    <p>Further Questions -> Please contact the admin - support@kanch.me</p>
+    <p>Further Questions -> Please contact the admin - ksanthanakrishnan@g.harvard.edu</p>
 </div>
 @stop

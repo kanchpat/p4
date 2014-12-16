@@ -34,7 +34,7 @@ class CreateBookRenterTable extends Migration {
 	 */
 	public function down()
 	{
-        Schema::drop('book_renter');
+        Schema::drop('book_renters');
     }
 
 }

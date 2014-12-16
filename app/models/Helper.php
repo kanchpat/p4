@@ -34,7 +34,7 @@ class Helper{
 
     public static function showGoogleBooks()
     {
-        $title_request = Input::get('title');
+        $title_request = Input::get('search_text');
         $client = new Google_Client();
         $client->setApplicationName("Client_Library_Examples");
         $client->setDeveloperKey("AIzaSyBd_hZnDpgwcRvI4YjEab_zI0cV6sJRX4U");
@@ -62,17 +62,13 @@ class Helper{
                     $books["$count"]->isbn = $indInfo->getIdentifier();
                 }
             }
-
-            $imgLinks = is_array($item->volumeInfo->getImageLinks) ? $item->volumeInfo->getImageLinks :null;
-
-            if(is_null($imgLinks))
+            if($item->volumeInfo->getImageLinks()['smallThumbnail'])
             {
-                $books[$count]->cover = "http://covers.openlibrary.org/b/isbn/".$books[$count]->isbn."-S.jpg";
+                $books[$count]->cover =$item->volumeInfo->getImageLinks()['smallThumbnail'];
             }
             else
             {
-                foreach($imgLinks as $imgLink)
-                    $books[$count]->cover =$imgLink;
+                $books[$count]->cover = "http://covers.openlibrary.org/b/isbn/".$books[$count]->isbn."-S.jpg";
             }
             $count++;
         }

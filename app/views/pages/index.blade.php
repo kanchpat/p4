@@ -21,12 +21,12 @@ body
     {{ Session::get('flash_message') }}
 @endif
 @stop
-@section('loginfo')
-<!-- Fixed navbar -->
-   {{{ isset(Auth::user()->email) ? 'Hello,' + Auth::user()->email : 'Log In' }}}
+
+
+@section('errormsg')
+@foreach($errors->all() as $message)
+{{ $message }}
+@endforeach
 @stop
 
-@section('parainfo')
-<!--    Book Rental is an online community to create your own library from the collection of great book collections we have at home.-->
-<!--    <br> This currently is designed only for children books maintained by adults.-->
-@stop
+

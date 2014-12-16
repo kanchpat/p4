@@ -110,10 +110,10 @@ class UserController extends BaseController {
                                                   ->with('name',$name);
         }
         else {
- /*           return Redirect::to('/login')
+             return Redirect::to('/login')
                 ->with('flash_message', 'Log in failed; please try again.')
-                ->withInput();*/
-            return View::make('pages.login')->with('flash_message','Email Id does not exist');
+                ->withInput();
+   //         return View::make('pages.login')->with('flash_message','Email Id / Password incorrect');
              }
         }
         else

@@ -37,4 +37,18 @@ class Owner extends Eloquent {
         return null;
         }
     }
+
+    public static function findOwnerInfoForUserId($query){
+        if($query) {
+
+            $owner = Owner::where('user_id','=',$query)->first();
+
+        }
+        # Otherwise, just fetch all books
+        else {
+            # Eager load tags and author
+            $owner=null;
+        }
+        return $owner;
+    }
  }

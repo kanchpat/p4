@@ -8,12 +8,19 @@
 </head>
 <body>
 @include('includes.main')
+<div class="container">
+    <header class="row">
+        <h1>@yield('header') </h1>
+    </header>
+</div>
 
-@yield('content')
-
-        <h1>  @yield('header') </h1>
-
-@yield('body')
+<div class='alert-warning'> @yield('flashmsg') </div>
+@if(Session::has('error_message'))
+<div class='alert alert-danger'> @yield('errormsg')</div>
+@endif
+<div class="form-group">
+    @yield('form')
+</div>
 
 @include('includes.footer')
 <!-- Bootstrap core JavaScript
