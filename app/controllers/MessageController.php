@@ -43,54 +43,78 @@ class MessageController extends \BaseController {
         if(is_null($values))
             return Redirect::to ('/msgs/list')->with('flash_message','Pick a selection');
 
-        $bookIds = Input::get('id');
+        $i=0;
         $msgIds = Input::get('msg_id');
 
-        foreach($bookIds as $bookId){
-            $book = Book::getBook($bookId);
-            $renter= Book::getRenter($book);
-        }
-
-        //  $message = Message::getMessage($msgId);
-        print_r($renter);
-        print_r($book);
-    }
-
-
-    public function xxxpostList() {
-
-        $values = Input::get('select');
-
-        if(is_null($values))
-            return Redirect::to ('/msgs/list')->with('flash_message','Pick a selection');
-
-        $idInfo = Input::get('id');
-        $msgId = Input::get('msg_id');
-        $i=0;
-       foreach ($values as $value)
+        foreach($msgIds as $msgId)
         {
-          if($value == '0')
-                {
-                 $ownerInfo = Book::changeRentForBookID($idInfo[$i]);
- /*                  $successInfoForRenter=Renter::approveRentalForBookId($idInfo[$i]);
-                   $successInfoForMsgs=Message::setReadInd($msgId[$i]);*/
-            //        var_dump($messages);
-         /*            if (!($successInfoForRenter || $successInfoForBook  || $successInfoForMsgs))
-                        return Redirect::to ('/msgs/list')->with('flash_message','Something went wrong');*/
-                }
+            $message = Message::getMessage($msgId);
+            $book = Book::getBook($message->book_id);
+            $renterWithBook= Book::getRenter($book);
 
-          if($value == '1')
-                {
-                    Renter::delete_rental($idInfo[$i]);
-                }
-            $i++;
+            $renter = Renter::getRenter($renterWithBook['renter'][0]->id);
+
+            $returnBook[] = new Book();
+            $returnRenter[] = new Renter();
+            $owner[] = new Owner();
+            $email[] = array();
+
+            /* Check if the ready_to_swap ind is "Y" or "N". if yes, let them know its been already used
+             * Update ready_to_swap ind to "N"
+             * Update Read_ind in messages
+             * Update return_ind to "N" in Renter
+             * Create a new message for approval to the renter
+             * Get the renter user and address info to the owner
+             */
+
+           if($values[$i++]==0)
+            {
+            $returnMsgforBookUpdate = Book::changeRentForBookID($book->id);
+            if($returnMsgforBookUpdate == 'Performed')
+            {
+                $returnMsgforRentalUpdate = Renter::initiateRent($renter->id);
+            }
+            else
+                return View::make ('pages.messages_approval')->with('flash_message',$returnMsgforBookUpdate)
+                                                  ->with('books',$returnBook)
+                                                  ->with('owners',$owner)
+                                                  ->with('emails',$email);
+
+            if($returnMsgforRentalUpdate != 'Performed')
+                return View::make ('pages.messages_approval')->with('flash_message',$returnMsgforRentalUpdate)
+                                                        ->with('books',$returnBook)
+                                                        ->with('owners',$owner)
+                                                        ->with('emails',$email);
+
+
+                $returnBook[] = $book;
+            $owner[] = Owner::findOwnerInfoForUserId($renter->renter_id);
+            $email[] = Auth::user()->email;
+            $returnRenter[] = $renter;
+
+            if($returnMsgforRentalUpdate == 'Performed' && $returnMsgforBookUpdate == 'Performed')
+            {
+                Message::setReadInd($message->id);
+                Message::createMessageForApproveRental($book->id,$book->title,$renter->renter_id);
+            }
+            }
+            else{
+                //Reject processing
+                /*
+                 * Set message read_ind = 'Y'
+                 * Create a message to the requestor of this requestor that you are unable to rent the book as of now
+                 * Delete row from Renter table with this book id
+                 *
+                 */
+                Message::setReadInd($message->id);
+                Message::createMessageForRejectRental($book->id,$book->title,$renter->renter_id);
+                Renter::deleteRenterRowForRejection($renter->id,$book);
+            }
         }
-
-/*
-           return View::make('pages.messages_address')->with('flash_message','Your books have been approved / rejected as per option
-                                                             Renter has been notified with the approval')
-                                                 ->with('ownerInfo',$ownerInfo);
-                                                 ->*/
+            return View::make ('pages.messages_approval')->with('flash_message',$returnMsgforRentalUpdate)
+                                                  ->with('books',$returnBook)
+                                                 ->with('owners',$owner)
+                                                 ->with('emails',$email);
     }
 
 }

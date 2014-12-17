@@ -9,6 +9,10 @@ class Renter extends Eloquent {
         return $this->belongsToMany('Book','book_renter');
     }
 
+    public static function getRenter($id){
+        $renter = Renter::find($id);
+        return $renter;
+    }
 
     /* Create a new Rental record, this is initiated from the /book/rent post controller
     */
@@ -25,30 +29,7 @@ class Renter extends Eloquent {
         $rent->books()->attach($book);
     }
 
-    /* Queries the book table for available books which are not owned by the current user
-     * and renter table for the same book  not rented out or initiated for rental
-     * Called from /book/rent get method
-     */
-    public static function availableRentInfo($id) {
 
-        # If there is a query, search the library with that query
-        if($id) {
-
-            # Eager load tags and author
-            $rentInfo = Renter::with(array('books' => function($query) use($id){
-                    $query->where('owner_id','!=',$id);
-                }))
-                  ->where('return_ind','!=','N')
-                  ->orWhere('return_ind','!=',' ')
-                  ->get();
-            return $rentInfo;
-        }
-        # Otherwise, just fetch all books
-        else {
-           return false;        # Eager load tags and author
-        }
-
-    }
 
     /*Accepts the user id and returns the books rented out by the individual with the books information
      * This is called from /book/loan get and post methods
@@ -136,12 +117,10 @@ class Renter extends Eloquent {
      *
      */
 
- /*   public static function initiateRent($value) {
+    public static function initiateRent($value) {
 
-        foreach($value as $id){
             try {
-                $renter = Renter::where('book_id','=',$id)
-                    ->first();
+                $renter = Renter::find($value);
             }
             catch(exception $e) {
                 return "Exception";
@@ -152,51 +131,24 @@ class Renter extends Eloquent {
             else
             {
                 $renter->return_ind='N';
+                $renter->save();
+                return "Performed";
             }
-            $renter->save();
-        }
+    }
 
-        return "Initiation performed";
-    }*/
-
-    /* Queries the books and Renter table for the book id specified. Retrieves the record and sets the return_ind
-    * to 'N' to indicate that the owner of the book has approved the request
-     * Called from /msgs/list post method
-     */
-
-    public static function approveRentalForBookId($id) {
-        try {
-            $renters = Renter::with('books')
-                      ->whereHas('books' ,function($query) use($id){
-                    $query->where('book_id','=',$id);
-                        })
-                 ->get();
-
-                 foreach($renters as $renter)
-                    {
-                        $renter->return_ind = 'N';
-                        $renter->save();
-                    }
-             return true;
-        }
-            catch(exception $e) {
-                return false;
+   public static function deleteRenterRowForRejection($id,$book){
+        try{
+            $renter=Renter::find($id);
             }
+        catch(Exception $e)
+        {
+            var_dump($e);
         }
 
-    public static function findRentalForBookId($id) {
-       try {
-            $renter = Renter::with('books')
-                ->whereHas('books' ,function($query) use($id){
-                    $query->where('book_id','=',$id);
-                })
-                ->where('return_ind','=',' ')
-                ->first();
-            return $renter;
-        }
-        catch(exception $e) {
-            return null;
-        }
+        $book->renter()->detach($id);
+        Renter::destroy($id);
+        $renter->save();
+
     }
 
 

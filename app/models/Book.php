@@ -38,6 +38,27 @@ class Book extends Eloquent {
                 ->first();
             return $renter;
     }
+
+    /* Queries the book table for available books which are not owned by the current user
+  * and renter table for the same book  not rented out or initiated for rental
+  * Called from /book/rent get method
+  */
+    public static function availableRentInfo($id) {
+
+        # If there is a query, search the library with that query
+        if($id) {
+            # Eager load tags and author
+            $rentInfo = Book::where('owner_id','!=',$id)
+                ->get();
+            return $rentInfo;
+        }
+        # Otherwise, just fetch all books
+        else {
+            return false;        # Eager load tags and author
+        }
+
+    }
+
     /**
      * Queries for the books table for all the books this current user id
      * Used in /book/list get Method
@@ -64,53 +85,8 @@ class Book extends Eloquent {
         return $books;
     }
 
-/*    public static function searchWithBookId($query) {
 
-        # If there is a query, search the library with that query
-        if($query) {
-
-            # Eager load tags and author
-            $books = Book::find($query)->get();
-
-            # Note on what `use` means above:
-            # Closures may inherit variables from the parent scope.
-            # Any such variables must be passed to the `use` language construct.
-
-        }
-        # Otherwise, just fetch all books
-        else {
-            # Eager load tags and author
-            $books = Book::all();
-        }
-
-        return $books;
-    }*/
-
-    /*
-     *
-     */
-/*    public static function rent($query){
-            # If there is a query, search the library with that query
-            if($query) {
-                try{
-                $rentInfo = Book::where('owner_id','!=',$query)
-                            ->where('ready_to_swap','=','Y')
-                    ->get();
-                    return $rentInfo;
-                }
-                catch(Exception $e){
-                    return null;
-                }
-            }
-            # Otherwise, just fetch all books
-            else {
-                # Eager load tags and author
-                $rentInfo = Book::all();
-            }
-            return $rentInfo;
-        }*/
-
-    /*
+     /*
      * Delete book based on the id
      */
     public static function delete_book($value) {
@@ -135,22 +111,20 @@ class Book extends Eloquent {
  */
 
     public static function changeRentForBookID($id) {
-
-
-            try {
+       try {
                 $book = Book::findOrFail($id);
             }
             catch(exception $e) {
-                return false;
+                return "Something wrong with the data";
             }
 
             if($book->ready_to_swap == 'Y')
+            {
                 $book->ready_to_swap='N';
+                $book->save();
+                return "Performed";
+            }
             else
-                $book->ready_to_swap='Y';
-            $book->save();
-
-        $ownerInfo = Message::createMessageForApproveRental($id);
-        return $ownerInfo;
+              return "Book already out for rental";
     }
 }

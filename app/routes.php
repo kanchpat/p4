@@ -40,8 +40,6 @@ Route::post('/book/list', 'BookController@postSearch');
 Route::get('/msgs/list', 'MessageController@getList');
 Route::post('/msgs/list', 'MessageController@postList');
 
-Route::get('/msgs/approval','MessageController@getAddress');
-
 Route::get('/book/rent','RenterController@getRent');
 Route::post('/book/rent','RenterController@postRent');
 

@@ -23,12 +23,10 @@ Selection of books available for Rental
 @section('tabledata')
 <th> Title of the book </th>
 <th> Rent this </th>
-@foreach($renters as $renter)
+@foreach($books as $book)
 <tr>
-    @foreach($renter->books as $book)
     <td>{{{ $book['title'] }}}</td>
     <td>{{ Form::checkbox('BookRent[]',$book['id']) }}</td>
-    @endforeach
 </tr>
 @endforeach
 {{ Form::close() }}

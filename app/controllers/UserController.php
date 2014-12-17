@@ -72,6 +72,7 @@ class UserController extends BaseController {
                 ->subject('Verify your email address');
         });
 
+        Auth::logout();
         return Redirect::to('/')->with('flash_message', 'Welcome to Bookbuddy verify with the confirmation code sent to your email!');
 
     }

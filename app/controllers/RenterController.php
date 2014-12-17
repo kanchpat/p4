@@ -17,11 +17,11 @@ class RenterController extends \BaseController {
 
 
     public function getRent() {
-        $renters = Renter::availableRentInfo(Auth::user()->id);
-        if(is_null($renters))
+        $books = Book::availableRentInfo(Auth::user()->id);
+        if(is_null($books))
            return Redirect::to ('/book/rent')->with('error_message','Issue accessing the book rental');
         else
-           return View::make('pages.book_rent')->with('renters',$renters);
+           return View::make('pages.book_rent')->with('books',$books);
 
     }
 

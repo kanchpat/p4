@@ -41,9 +41,11 @@ Approve or Reject for Rental.
     <td>{{{ $message['msg_text'] }}}</td>
     <td>{{{ $owner_names[$i++] }}}</td>
     <td>
+        @if($message['action_ind'] == 'Y')
         {{ Form::select('select[]',array('Approve','Reject'),array('class'=>'form-control')) }}
         {{ Form::hidden('id[]', $message['book_id'] ) }}
         {{ Form::hidden('msg_id[]',$message['id'] ) }}
+        @endif
     </td>
 </tr>
 @endforeach

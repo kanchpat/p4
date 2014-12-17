@@ -16,6 +16,7 @@ Address
 @endif
 @stop
 
+
 @section('tableheader')
 Address for the recipients of the books
 @stop
@@ -25,18 +26,22 @@ Approve or Reject for Rental.
 @stop
 
 @section('tabledata')
-<th> Message Details </th>
+<th> Title of the book </th>
+<th> Requester Name </th>
 <th> Address </th>
-<th> Approve / Reject </th>
+<th> Email Id</th>
 
-@foreach($messages as $message)
+@if(is_null($owners))
+No titles to report.
+@else
+@for($i =0; $i<1 ; $i++)
 <tr>
-    <td>{{{ $message['msg_text'] }}}</td>
-    @foreach($message->users as $user)
-    <td>{{{ $user->address1. $user->address2 }}}</td>
-     @endforeach
+    <td>{{{ $books[$i]->title }}}</td>
+    <td>{{{ $owners[$i]->first_name . $owners[$i]->last_name }}}</td>
+    <td>{{{ $owners[$i]->address1 . $owners[$i]->address2 . $owners[$i]->city . $owners[$i]->state . $owners[$i]->zip_code }}}</td>
 </tr>
-@endforeach
+@endfor
+@endif
 @stop
 
 

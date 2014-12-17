@@ -21,7 +21,7 @@ class Message extends Eloquent {
 
     }
 
-    public function getMessage($msgId){
+    public static function getMessage($msgId){
         $message = Message::find($msgId);
         return $message;
     }
@@ -43,19 +43,29 @@ class Message extends Eloquent {
      *
      */
 
-    public static function createMessageForApproveRental($id){
-        $book = Book::find($id);
-        $rent = Renter::findRentalForBookId($id);
-        $ownerInfo = Owner::findOwnerInfoforUserId($rent->renter_id);
-       $writeMessage="Your book".$book->title."is approved for rental. You should receive them soon";
+    public static function createMessageForApproveRental($book_id,$title,$renter_id){
+         $writeMessage="Your book".$title."is approved for rental. You should receive them soon";
         $msg = new Message();
         $msg->msg_text = $writeMessage;
-        $msg->user_id = $rent->renter_id;
-        $msg->book_id = $book->id;
+        $msg->user_id = $renter_id;
+        $msg->book_id = $book_id;
         $msg->read_ind = 'N';
         $msg->action_ind='N';
         $msg->save();
-        return $ownerInfo;
+        return "Successful";
+    }
+
+
+    public static function createMessageForRejectRental($book_id,$title,$renter_id){
+        $writeMessage="Your book".$title."is rejected for rental. Check back soon";
+        $msg = new Message();
+        $msg->msg_text = $writeMessage;
+        $msg->user_id = $renter_id;
+        $msg->book_id = $book_id;
+        $msg->read_ind = 'N';
+        $msg->action_ind='N';
+        $msg->save();
+        return "Successful";
     }
 
     /* Queries Message and books to get the information for the user messages which are read and has an action
@@ -68,7 +78,6 @@ class Message extends Eloquent {
                 $messages = Message::with('book')
                     ->where('user_id','=',$user_id)
                     ->where('read_ind','=','N')
-                    ->where('action_ind','=','Y')
                     ->get();
                return $messages;
             }
