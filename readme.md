@@ -13,7 +13,7 @@ Visit [my link](http://p4.kanch.me)
 
 ## Demo
 
- [Screen cast](http://screencast.com/t/m7hQqP8qWIlM)
+ [Screen cast](http://screencast.com/t/4yObO5nsJv)
 
 ## Details for teaching team
  1. Completely used PHP/Laravel.
