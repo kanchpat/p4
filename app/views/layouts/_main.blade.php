@@ -9,6 +9,12 @@
 <body>
 @include('includes.main')
 
+<div class="container">
+    <header class="row">
+        @yield('header')
+    </header>
+</div>
+
 <div class='alert-warning'> @yield('flashmsg') </div>
 @if(Session::has('error_message'))
 <div class='alert alert-danger'> @yield('errormsg')</div>

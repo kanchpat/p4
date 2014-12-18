@@ -14,7 +14,7 @@
 
 <div class="container">
     <header class="row">
-        <h1>@yield('header') </h1>
+        @yield('header')
     </header>
 </div>
 
