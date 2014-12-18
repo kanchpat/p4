@@ -27,10 +27,10 @@ No titles to report.
 @for($i =0; $i < count($owners) ; $i++)
 <tr>
     <td> {{{ $books[$i]->title }}} <br>
-        <img src='{{ $book['cover'] }}' >
+        <img src='{{ $books[$i]->cover }}' >
     </td>
     <td>  {{{ $owners[$i]->first_name . $owners[$i]-> last_name }}} </td>
-    <td>  {{{ $owners[$i]-> address1 . $owners[$i]-> address2 . }}} <br>
+    <td>  {{{ $owners[$i]-> address1 . $owners[$i]-> address2  }}} <br>
         {{{$owners[$i]->city . $owners[$i]->state . $owners[$i]->zip_code }}}
     </td>
     <td>  {{{ $emails[$i]-> email }}}
