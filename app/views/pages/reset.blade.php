@@ -25,7 +25,7 @@ Reset Password
 {{ Form::open(array('route' => array('pages.update', $token))) }}
 
 <p>{{ Form::label('email', 'Email') }}
-    {{ Form::text('email') }}</p>
+    {{ Form::text('email',null) }}</p>
 
 <p>{{ Form::label('password', 'Password') }}
     {{ Form::password('password') }}</p>
@@ -35,7 +35,7 @@ Reset Password
 
 {{ Form::hidden('token', $token) }}
 
-<p>{{ Form::submit('Submit') }}</p>
+<p>{{ Form::submit('Submit',array('class'=>'btn btn-success')) }}</p>
 
 {{ Form::close() }}
 

@@ -24,8 +24,8 @@ class RemindersController extends Controller {
 		{
 			case Password::INVALID_USER:
 
-                $msg='This email'.$email.'id does not exist';
-				return Redirect::back()->with('error_message', $msg);
+                $msg='This email id  '.$email.' does not exist';
+				return Redirect::back()->with('flash_message', $msg);
 
 			case Password::REMINDER_SENT:
                 $msg='Reminder sent to email'.$email;
@@ -72,7 +72,7 @@ class RemindersController extends Controller {
 				return Redirect::back()->with('error_message', Lang::get($response));
 
 			case Password::PASSWORD_RESET:
-				return Redirect::to('/index')->with('flash_message','Password reset successfully');
+				return Redirect::to('/')->with('flash_message','Password reset successfully');
 		}
 	}
 

@@ -30,13 +30,14 @@ class Book extends Eloquent {
     }
 
     public static function getRenter($book){
-            $id=$book->id;
-            $renter = Book::with('renter')
-                ->whereHas('renter' ,function($query) use($id){
-                    $query->where('book_id','=',$id);
-                })
-                ->first();
-            return $renter;
+        $id=$book->id;
+        $renter = Book::with('renter')
+            ->whereHas('renter' ,function($query) use($id){
+                $query->where('book_id','=',$id)
+                    ->where('return_ind','=','N');
+            })
+            ->first();
+        return $renter;
     }
 
     /* Queries the book table for available books which are not owned by the current user
@@ -49,6 +50,7 @@ class Book extends Eloquent {
         if($id) {
             # Eager load tags and author
             $rentInfo = Book::where('owner_id','!=',$id)
+                ->where('ready_to_swap','=','Y')
                 ->get();
             return $rentInfo;
         }
@@ -65,7 +67,7 @@ class Book extends Eloquent {
      */
     public static function searchWithOwnerId($query) {
 
-       # If there is a query, search the library with that query
+        # If there is a query, search the library with that query
         if($query) {
 
             # Eager load tags and author
@@ -86,45 +88,67 @@ class Book extends Eloquent {
     }
 
 
-     /*
-     * Delete book based on the id
-     */
+    /*
+    * Delete book based on the id
+    */
     public static function delete_book($value) {
 
-        foreach($value as $id){
-            try {
-                $book = Book::findOrFail($id);
-            }
-            catch(exception $e) {
-                return false;
-            }
-
-            Book::destroy($id);
-            $book->save();
+        try {
+            $book = Book::findOrFail($value);
+        }
+        catch(exception $e) {
+            return false;
         }
 
-        return true;
-   }
+        if(Renter::findAndDeleteAllRentersForBookId($book))
+        {
+            Book::destroy($value);
+            $book->save();
+            return true;
+        }
+        else
+            return false;
+    }
 
-/*Queries book for the id specified and updates the ready_to_swap indicator
- * Used in /book/list and also the msg/list post method for edit operation
- */
+    /*Queries book for the id specified and updates the ready_to_swap indicator
+     * Used in /book/list post method.
+         * to update the indicator for availability of rental -
+         *                  ->check if the current value in the table and the user supplied value or the same
+         *                          ->do nothing
+         *                  -> if different, and if yes -> update and save
+         *                  -> if different, and if no ->
+         *                          ->check if the return indicator in rental table is "N", it means that it is rented out
+         *                          -> no change
+         *                          -> if the return indicator in rental table is "Y" or " " or no row available,
+         *                              update the indicator to "Y"
+         */
 
-    public static function changeRentForBookID($id) {
-       try {
-                $book = Book::findOrFail($id);
-            }
-            catch(exception $e) {
-                return "Something wrong with the data";
-            }
 
-            if($book->ready_to_swap == 'Y')
+    public static function changeRentForBookID($id,$futureValue) {
+        $book = Book::find($id);
+
+        if($book->ready_to_swap == $futureValue)
+            return "Same Value";
+
+        if($book->ready_to_swap == 'Y')
+        {
+            $book->ready_to_swap=$futureValue;
+            $book->save();
+            return "Performed";
+        }
+        else
+        {
+            $renters = Renter::getRentersForBook($book);
+            if(count($renters) > 0)
             {
-                $book->ready_to_swap='N';
-                $book->save();
-                return "Performed";
+                foreach($renters as $renter)
+                    if($renter->return_ind = 'N')
+                        return "Book Already rented out :".$book->title;
             }
-            else
-              return "Book already out for rental";
+            $book->ready_to_swap=$futureValue;
+            $book->save();
+            return "Performed";
+        }
+        return "Performed";
     }
 }

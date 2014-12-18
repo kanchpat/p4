@@ -21,19 +21,21 @@ class MessageController extends \BaseController {
     public function getList() {
         $messages = Message::getInfo(Auth::user()->id);
 
-        if(is_null($messages))
-            return Redirect::to ('/')->with('flash_message','Error reading Messages');
+        if(count($messages)==0)
+            return View::make ('pages.messages_list')->with('messages',$messages);
 
         foreach($messages as $message)
-            $owner_names[]= Owner::getName($message['user_id']);
+        {
+            $owner_names[]= Owner::getName($message['msg_from']);
+        }
+
 
         if(!isset($owner_names))
             return Redirect::to ('/')->with('flash_message','Error reading Messages');
 
-
         return View::make('pages.messages_list')
-                    ->with('messages',$messages)
-                    ->with('owner_names',$owner_names);
+            ->with('messages',$messages)
+            ->with('owner_names',$owner_names);
 
     }
 
@@ -50,14 +52,21 @@ class MessageController extends \BaseController {
         {
             $message = Message::getMessage($msgId);
             $book = Book::getBook($message->book_id);
-            $renterWithBook= Book::getRenter($book);
+            $renter = Renter::getRenterForRenterUserId($message->msg_from,$message->book_id);
 
-            $renter = Renter::getRenter($renterWithBook['renter'][0]->id);
+//            echo "<br> Message <br>";
+//            print_r ($message);
+//
+//            echo "<br> Book <br>";
+//            print_r ($book);
+//
+//            echo "<br> Renter <br>";
+//            print_r ($renter);
 
             $returnBook[] = new Book();
             $returnRenter[] = new Renter();
-            $owner[] = new Owner();
-            $email[] = array();
+            $ownerInfo[] = new Owner();
+            $renterEmail[] = new User();
 
             /* Check if the ready_to_swap ind is "Y" or "N". if yes, let them know its been already used
              * Update ready_to_swap ind to "N"
@@ -67,36 +76,38 @@ class MessageController extends \BaseController {
              * Get the renter user and address info to the owner
              */
 
-           if($values[$i++]==0)
-            {
-            $returnMsgforBookUpdate = Book::changeRentForBookID($book->id);
-            if($returnMsgforBookUpdate == 'Performed')
-            {
-                $returnMsgforRentalUpdate = Renter::initiateRent($renter->id);
-            }
-            else
-                return View::make ('pages.messages_approval')->with('flash_message',$returnMsgforBookUpdate)
-                                                  ->with('books',$returnBook)
-                                                  ->with('owners',$owner)
-                                                  ->with('emails',$email);
+            $returnMsgforRentalUpdate = false;
 
-            if($returnMsgforRentalUpdate != 'Performed')
-                return View::make ('pages.messages_approval')->with('flash_message',$returnMsgforRentalUpdate)
-                                                        ->with('books',$returnBook)
-                                                        ->with('owners',$owner)
-                                                        ->with('emails',$email);
+            if($values[$i++]==0)
+            {
+                $returnMsgforBookUpdate = Book::changeRentForBookID($book->id,"N");
+                if($returnMsgforBookUpdate == 'Performed')
+                {
+                    $returnMsgforRentalUpdate = Renter::initiateRent($renter->id);
+                }
+                else
+                    return View::make ('pages.messages_approval')->with('flash_message',$returnMsgforBookUpdate)
+                        ->with('books',$returnBook)
+                        ->with('owners',$ownerInfo)
+                        ->with('emails',$renterEmail);
+
+                   if($returnMsgforRentalUpdate != 'Performed')
+                        return View::make ('pages.messages_approval')->with('flash_message',$returnMsgforRentalUpdate)
+                            ->with('books',$returnBook)
+                            ->with('owners',$ownerInfo)
+                            ->with('emails',$renterEmail);
 
 
                 $returnBook[] = $book;
-            $owner[] = Owner::findOwnerInfoForUserId($renter->renter_id);
-            $email[] = Auth::user()->email;
-            $returnRenter[] = $renter;
+                $ownerInfo[] = Owner::findOwnerInfoForUserId($renter->renter_id);
+                $renterEmail[] = User::find($renter->renter_id);
+                $returnRenter[] = $renter;
 
-            if($returnMsgforRentalUpdate == 'Performed' && $returnMsgforBookUpdate == 'Performed')
-            {
-                Message::setReadInd($message->id);
-                Message::createMessageForApproveRental($book->id,$book->title,$renter->renter_id);
-            }
+                if($returnMsgforRentalUpdate == 'Performed' && $returnMsgforBookUpdate == 'Performed')
+                {
+                    Message::setReadInd($message->id);
+                    Message::createMessageForApproveRental($book->id,$renter->renter_id);
+                }
             }
             else{
                 //Reject processing
@@ -107,14 +118,16 @@ class MessageController extends \BaseController {
                  *
                  */
                 Message::setReadInd($message->id);
-                Message::createMessageForRejectRental($book->id,$book->title,$renter->renter_id);
+                Message::createMessageForRejectRental($book->id,$renter->renter_id);
                 Renter::deleteRenterRowForRejection($renter->id,$book);
             }
-        }
-            return View::make ('pages.messages_approval')->with('flash_message',$returnMsgforRentalUpdate)
-                                                  ->with('books',$returnBook)
-                                                 ->with('owners',$owner)
-                                                 ->with('emails',$email);
+         }
+
+        return View::make ('pages.messages_approval')->with('flash_message',$returnMsgforRentalUpdate)
+                                                    ->with('books',$returnBook)
+                                                    ->with('owners',$ownerInfo)
+                                                    ->with('emails',$renterEmail);
+
     }
 
 }

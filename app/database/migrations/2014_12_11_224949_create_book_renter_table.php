@@ -23,7 +23,7 @@ class CreateBookRenterTable extends Migration {
 
             # Define foreign keys...
             $table->foreign('book_id')->references('id')->on('books');
-            $table->foreign('renter_id')->references('id')->on('renters');
+            $table->foreign('renter_id')->references('id')->on('renters')->onDelete('cascade');
         });
 	}
 

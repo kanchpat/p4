@@ -3,13 +3,9 @@ html {
     position: relative;
     min-height: 100%;
 }
-/*body {
-    *//* Margin bottom by footer height *//*
+body {
     margin-bottom: 60px;
-    background-image: url('../img/book-swapper.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
-}*/
+}
 .footer {
     position: absolute;
     bottom: 0;

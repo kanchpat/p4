@@ -35,7 +35,7 @@ class RenterController extends \BaseController {
         {
         foreach($value as $bookInfo){
             Renter::createRent($bookInfo);
-            Message::createMessageForInitiateRental($bookInfo);
+            Message::createMessageForInitiateRental($bookInfo,Auth::user()->id);
                     }
             return Redirect::to ('/book/rent')->with('flash_message','Book Rent Initiated. Wait for the owner to get back, meanwhile proceed with the next selection');
         }

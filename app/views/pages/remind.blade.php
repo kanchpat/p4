@@ -26,7 +26,7 @@ An email with the password reset has been sent.
 @section('form')
 {{ Form::open(array('route' => 'pages.request')) }}
 <p>{{ Form::label('email', 'Email') }}
-    {{ Form::text('email') }}</p>
-<p>{{ Form::submit('Submit') }}</p>
+    {{ Form::text('email',null,array('class'=>'form-control')) }}</p>
+<p>{{ Form::submit('Submit',array('class'=>'btn btn-success')) }}</p>
 {{ Form::close() }}
 @stop

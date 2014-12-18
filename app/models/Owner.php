@@ -30,7 +30,7 @@ class Owner extends Eloquent {
         }
         if(!is_null($owners))
         {
-            $name = $owners->first_name.$owners->last_name;
+            $name = $owners->first_name." ".$owners->last_name;
             return $name;
         }
         else{

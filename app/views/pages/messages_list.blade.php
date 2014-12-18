@@ -1,7 +1,7 @@
 @extends('layouts._table')
 
 @section('title')
-Books
+Messages
 @stop
 
 @section('flashmsg')
@@ -18,7 +18,11 @@ Books
 
 @section('form')
 {{ Form::open(array('url' => '/msgs/list')) }}
+@if(sizeof($messages)==0)
+No Messages for you currently
+@else
 {{ Form::submit('Submit Info',array('class'=>'btn btn-success')); }}
+@endif
 @stop
 
 @section('tableheader')
@@ -26,14 +30,16 @@ Your messages
 @stop
 
 @section('tabledesc')
+@if(sizeof($messages)!=0)
 Approve or Reject for Rental.
+@endif
 @stop
 
 @section('tabledata')
 <th> Message Details </th>
-<th> User Requested by </th>
+<th> Message from </th>
 <th> Approve / Reject </th>
-
+@if(sizeof($messages)!=0)
 @if($i=0)
 @endif
 @foreach($messages as $message)
@@ -49,6 +55,7 @@ Approve or Reject for Rental.
     </td>
 </tr>
 @endforeach
+@endif
 {{ Form::close() }}
 @stop
 

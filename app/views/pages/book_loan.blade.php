@@ -4,13 +4,6 @@
 Books
 @stop
 
-@section('body')
-@if(sizeof($renters) == 0)
-No results
-@endif
-@stop
-
-
 @section('flashmsg')
 @if(Session::has('flash_message'))
 {{ Session::get('flash_message') }}
@@ -19,8 +12,12 @@ No results
 
 @section('form')
 {{ Form::open(array('url' => '/book/loan')) }}
+@if(sizeof($renters) == 0)
+You currently do not have any rentals
+@else
 {{ Form::submit('Past Rental', array('class'=>'btn btn-success','name' => 'action')) }}
 {{ Form::submit('Initiate Return', array('class'=>'btn btn-success','name' => 'action')) }}
+@endif
 @stop
 
 @section('tableheader')
@@ -28,9 +25,12 @@ My Rental
 @stop
 
 @section('tabledesc')
+@if(sizeof($renters) == 0)
+Please rent using the link <a href='/book/rent'>Browse books available for Rent</a>
+@else
 Initiate Return - When you are ready to return the book, initate return.<br>
-Owner would be notified and in 3 days they would need to verify if the book has reached.<br>
-Maximum available Rentals are 5
+Owner would be notified they would need to verify if the book has reached.<br>
+@endif
 @stop
 
 @section('tabledata')

@@ -14,6 +14,30 @@ class Renter extends Eloquent {
         return $renter;
     }
 
+    public static function getRenterForRenterUserId($renterId,$bookId){
+
+        $books_renters = DB::table('book_renter')->where('book_id', '=', $bookId)->get();
+
+        foreach($books_renters as $book_renter)
+        {
+            $renter = Renter::where('id','=',$book_renter->renter_id)
+                            ->where('renter_id','=',$renterId)
+                            ->where('return_ind','=',' ')
+                            ->first();
+            return $renter;
+        }
+        return null;
+    }
+
+    public static function getRentersForBook($book){
+        $id=$book->id;
+        $renters = Book::with('renter')
+            ->whereHas('renter' ,function($query) use($id){
+                $query->where('book_id','=',$id);
+            })
+            ->get();
+        return $renters;
+    }
     /* Create a new Rental record, this is initiated from the /book/rent post controller
     */
     public static function createRent($id){
@@ -27,6 +51,7 @@ class Renter extends Eloquent {
 
         $book = Book::find($id);
         $rent->books()->attach($book);
+
     }
 
 
@@ -109,7 +134,7 @@ class Renter extends Eloquent {
                 $renter->save();
         }
 
-        return "Initiation performed";
+        return "Initiation performed. Please send the book back to owner";
     }
 
     /* Queries for Books and Rental with the book id specified.
@@ -144,12 +169,32 @@ class Renter extends Eloquent {
         {
             var_dump($e);
         }
-
         $book->renter()->detach($id);
         Renter::destroy($id);
         $renter->save();
 
     }
 
+    public static function findAndDeleteAllRentersForBookId($book){
+        $books=Renter::getRentersForBook($book);
+
+        foreach($books as $book)
+        {
+            foreach($book->Renter as $renter)
+            {
+                try{
+                $book->renter()->detach($renter->id);
+                Renter::destroy($renter->id);
+                $renter->save();
+                }
+                catch(Exception $e){
+                    return false;
+                }
+
+            }
+        }
+
+        return true;
+    }
 
 }
