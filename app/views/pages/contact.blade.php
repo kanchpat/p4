@@ -12,9 +12,12 @@ Welcome to Book Buddy Contact Page
 
 @stop
 
-@section('header')
-Welcome to Book Swapper
-@stop
+<div class="container">
+    <header class="row">
+        <h1>Welcome to Book Swapper </h1>
+    </header>
+</div>
+
 @section('parainfo')
 <div class="container">
     <blockquote>

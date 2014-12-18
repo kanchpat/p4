@@ -4,9 +4,11 @@
 Log in
 @stop
 
-@section('header')
-Signup
-@stop
+<div class="container">
+    <header class="row">
+        <h1> Signup </h1>
+    </header>
+</div>
 
 @section('errormsg')
 @foreach($errors->all() as $message)

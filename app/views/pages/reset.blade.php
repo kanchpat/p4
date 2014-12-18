@@ -4,10 +4,11 @@
 Reset Password
 @stop
 
-
-@section('header')
-Reset Password
-@stop
+<div class="container">
+    <header class="row">
+        <h1>Reset password </h1>
+    </header>
+</div>
 
 @section('flashmsg')
 @if(Session::has('flash_message'))

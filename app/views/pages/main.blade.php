@@ -14,9 +14,6 @@ Welcome to Book Swapper
         background-position: center;
     }
 </style>
-<title>
-    Welcome to Book Swapper
-</title>
 @stop
 
 @section('flashmsg')
@@ -26,6 +23,5 @@ Welcome to Book Swapper
 @stop
 @section('loginfo')
 Hello
-{{{isset($name) ? $name : Auth::user()->
-email }}}
+{{{isset($name) ? $name : Auth::user()->email }}}
 @stop

@@ -1,25 +1,55 @@
-## Laravel PHP Framework
+## Book Buddy App - Book Swapping
+This app is designed to create our own library with the books we have at home. With this website I am hoping we could swap the books within the community so that friends can see your books and rent them as needed.
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/downloads.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+## Live URL
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, and caching.
+Visit [my link](http://p4.kanch.me)
 
-Laravel aims to make the development process a pleasing one for the developer without sacrificing application functionality. Happy developers make the best code. To this end, we've attempted to combine the very best of what we have seen in other web frameworks, including frameworks implemented in other languages, such as Ruby on Rails, ASP.NET MVC, and Sinatra.
+## Description
+1. Involved migrations, pivot tables, CRUD processing with tables
+2. Accessed Google Books API to add books
+3. Blade Templating for Layouts
+3. Other operations such as Login/Signup/Email Verification/Forgot Password
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+## Demo
 
-## Official Documentation
+ [Screen cast](http://screencast.com/t/m7hQqP8qWIlM)
 
-Documentation for the entire framework can be found on the [Laravel website](http://laravel.com/docs).
+## Details for teaching team
+ 1. Completely used PHP/Laravel.
+ 2. Database is designed with the below tables
+     1. Users - User Login info
+     2. Owners - User name and address
+     3. Books - Books
+     4. Renters - Book Rental or Swap
+     5. Book_Renter(Pivot)
+     6. Messages - Messages between Owner and Renter
+ 3. CRUD Processing
+     1. Create - All new books, renters, messages are created
+     2. Read - All information could be accessed
+     3. Update - User can manually update availability of the book, initiate rental and initiate a return of book
+                 During the transaction , programs also update the return indicator, return date , marking the message as read
+     4. Delete - User can manually delete a books record which would internally do an oncascade delete to messages.
+                 It would also do a detach and destroy with the pivot tables.
+                 During the transaction, program would also do a delete with a renter table if rejected for the rental
 
-### Contributing To Laravel
+ 4.  Website Speed 2.52s as per [http://tools.pingdom.com]
 
-**All issues and pull requests should be filed on the [laravel/framework](http://github.com/laravel/framework) repository.**
+##What works and what does not?
+1. This book currently does not have a community concept , as long as you are registered with the website you could see the books available for rental. Future update would be to create a group admin representing a community and a book could only be swapped inside that community
+2. I am hoping to restrict this website only to add Children books to avoid polluting the website.
+3. Currently the messaging process for initiation of rental and return is done only when the concerned user is logged in to the system. Would like to change this to a emailing
+4. I would like to have a tag for books so that it could be filtered based on the genre
+5. I would like to validate the address against USPS Street Address validator.
 
-### License
+##Outside code
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+ [culttt.com](http://culttt.com/2013/09/23/password-reminders-reset-laravel-4/)
+
+ [Scotch.io] (http://scotch.io/tutorials/simple-and-easy-laravel-login-authentication)
+
+ [bensmith.io] (http://bensmith.io/email-verification-with-laravel)
+
+ [susanbuck] (https://github.com/susanBuck/foobooks)
+
+ [Google Books API] (https://developers.google.com/books/docs/v1/using)

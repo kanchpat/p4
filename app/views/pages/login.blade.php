@@ -4,10 +4,11 @@
 Log in
 @stop
 
-
-@section('header')
-Log in
-@stop
+<div class="container">
+    <header class="row">
+        <h1>LogIn </h1>
+    </header>
+</div>
 
 @section('flashmsg')
 @if(Session::has('flash_message'))
