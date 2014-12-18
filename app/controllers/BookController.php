@@ -1,29 +1,29 @@
 <?php
 
 class BookController extends \BaseController {
-
-
     /**
      *
      */
-    public function __construct() {
+    public function __construct()   {
 
         # Make sure BaseController construct gets called
         parent::__construct();
 
-        $this->beforeFilter('auth', array('except' => 'getIndex'));
+        $this->beforeFilter('auth', array(
+            'except' => 'getIndex'
+        ));
 
     }
 
 
     /** List all the books you own Show Books you own
      */
-    public function getSearch() {
+    public function getSearch()     {
         // Searching the Books table by passing the current user id to the owner_id field
 
         $books = Book::searchWithOwnerId(Auth::user()->id);
 
-        return View::make('pages.book_search')->with('books',$books);
+        return View::make('pages.book_search')->with('books', $books);
 
     }
 
@@ -42,136 +42,140 @@ class BookController extends \BaseController {
      *                          -> if the return indicator in rental table is "Y" or " " or no row available,
      *                              update the indicator to "Y"
      */
-    public function postSearch() {
+    public function postSearch()   {
 
-        $idNos = Input::get('Delete');
+        $idNos      = Input::get('Delete');
         $rent_value = Input::get('AvailableforRent');
-        $id = Input::get('id');
+        $id         = Input::get('id');
 
-        $i=0;
+        $i = 0;
 
-        foreach($rent_value as $value)
-        {
-            $returnMsg[] = Book::changeRentForBookID($id[$i],$value);
+        foreach ($rent_value as $value) {
+            $returnMsg[] = Book::changeRentForBookID($id[$i], $value); #Get the rental availability ind updated
             $i++;
         }
 
         $book_deleted = false;
 
-        if(!(is_null($idNos)))
-        {
-            $book_deleted=true;
-            foreach($idNos as $idValue)
-            {
-                if(!(Book::delete_book($idValue)))
-                    return Redirect::to ('/book/list')->with('flash_message','Book Delete , error');
+        if (!(is_null($idNos))) {
+            $book_deleted = true;
+            foreach ($idNos as $idValue) {
+                if (!(Book::delete_book($idValue))) #delete books
+                    return Redirect::to('/book/list')->with('flash_message', 'Book Delete , error');
             }
         }
 
-        if($book_deleted)
-            return Redirect::to ('/book/list')->with('flash_message','Swap value deleted');
+        # Print message based on the action perforemd
+        if ($book_deleted)
+            return Redirect::to('/book/list')->with('flash_message', 'Swap value deleted');
 
         $msg = '';
 
-        foreach($returnMsg as $message)
-        {
-            if($message == 'Performed' || 'Same Value')
+        foreach ($returnMsg as $message) {
+            if ($message == 'Performed' || 'Same Value')
                 continue;
             else
-                $msg = $msg.$message."<br>";
+                $msg = $msg . $message . "<br>";
         }
 
-        return Redirect::to ('/book/list')->with('flash_message',$msg);
+        return Redirect::to('/book/list')->with('flash_message', $msg);
 
     }
 
+    /* This is for new books creation takes only one field
+     */
 
-
-    public function getCreate() {
+    public function getCreate()  {
 
         return View::make('pages.book_add')->with('owners', Auth::user()->id);
 
     }
 
+    /*
+     * This is for the data to be validated and the user selection is added to your inventory
+     */
 
     public function postCreate() {
         $rules = array(
-            'select_book' => 'required',
+            'select_book' => 'required'
         );
 
         # Step 2)
         $validator = Validator::make(Input::all(), $rules);
 
         # Step 3
-        if($validator->fails()) {
+        if ($validator->fails()) {
 
-            return Redirect::to('/book/create')
-                ->with('flash_message', 'Problem with the input, fix and try again')
-                ->withInput()
-                ->withErrors($validator);
+            return Redirect::to('/book/create')->with('flash_message', 'Problem with the input, fix and try again')->withInput()->withErrors($validator);
         }
-        $value = Input::get('select_book');
-        foreach($value as $bookInfo){
-            $book = new Book();
+        $value  = Input::get('select_book'); #Take from the Input based on the Google API Output
+        $title  = Input::get('title');
+        $author = Input::get('author');
+        $isbn   = Input::get('isbn');
+        $cover  = Input::get('cover');
 
-            $values = Helper::multiexplode(array(":",","),$bookInfo,6);
-            $book->title = $values[1];
-            $book->author = $values[3];
-            $book->isbn = $values[5];
-            $book->cover = 'http://'.$values[8];
-            $book->owner_id = Auth::user()->id;
+        foreach ($value as $index) {
+            $book                = new Book();
+            $book->title         = $title[$index];
+            $book->author        = $author[$index];
+            $book->isbn          = $isbn[$index];
+            $book->cover         = $cover[$index];
+            $book->owner_id      = Auth::user()->id;
             $book->ready_to_swap = 'Y';
 
             $book->save();
         }
-        return Redirect::to ('/book/create')->with('flash_message','Book added');
+        return Redirect::to('/book/create')->with('flash_message', 'Book added');
 
     }
 
-
-    public function showGoogleBooks(){
+    /*
+     * This function calls the Helper model which has the Google API interaction.
+     * They provide the list of books which closely fall towards the book title or author
+     */
+    public function showGoogleBooks()  {
 
         $rules = array(
-            'search_text' => 'required|min:8',
+            'search_text' => 'required|min:8'
         );
 
         # Step 2)
         $validator = Validator::make(Input::all(), $rules);
 
         # Step 3
-        if($validator->fails()) {
+        if ($validator->fails()) {
 
-            return Redirect::to('/book/create')
-                ->with('flash_message', 'Problem with the input, fix and try again')
-                ->withInput()
-                ->withErrors($validator);
+            return Redirect::to('/book/create')->with('flash_message', 'Problem with the input, fix and try again')->withInput()->withErrors($validator);
         }
         $books = Helper::showGoogleBooks();
-        return View::make('pages.book_google_add')->with('books',$books);
+        return View::make('pages.book_google_add')->with('books', $books);
     }
 
-    public function getEdit($id) {
+    /*
+     * These are edit functions. They are mainly taken from Susan buck's foobooks
+     */
+    public function getEdit($id)  {
         try {
-            $book    = Book::findOrFail($id);
+            $book = Book::findOrFail($id);
         }
-        catch(exception $e) {
+        catch (exception $e) {
             return Redirect::to('/book/list')->with('flash_message', 'Book not found');
         }
-        return View::make('pages.book_edit')
-            ->with('book', $book);
+        return View::make('pages.book_edit')->with('book', $book);
     }
 
 
     /**
      * Process the "Edit a book form"
      * @return Redirect
+     * This is mainly taken from Susan Buck's Foobooks
      */
-    public function postEdit() {
+    public function postEdit()  {
 
         try {
             $book = Book::findOrFail(Input::get('id'));
         }
-        catch(exception $e) {
+        catch (exception $e) {
             return Redirect::to('/book')->with('flash_message', 'Book not found');
         }
 
@@ -179,7 +183,7 @@ class BookController extends \BaseController {
         $book->fill(Input::all());
         $book->save();
 
-        return Redirect::action('BookController@getSearch')->with('flash_message','Your changes have been saved.');
+        return Redirect::action('BookController@getSearch')->with('flash_message', 'Your changes have been saved.');
 
     }
 

@@ -13,7 +13,7 @@ class ShowController extends BaseController {
     }
 
     /**
-     *
+     * How it works page
      */
     public function getAbout() {
 

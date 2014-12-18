@@ -3,11 +3,11 @@
 class Owner extends Eloquent {
 
     # The guarded properties specifies which attributes should *not* be mass-assignable
-    protected $guarded = array('id', 'created_at', 'updated_at','user_id');
+    protected $guarded = array('id', 'created_at', 'updated_at', 'user_id');
 
     /**
-     * Book belongs to Author
-     * Define an inverse one-to-many relationship.
+     * Owner belongs to one user
+     * Define an one-to-one relationship.
      */
     public function user() {
 
@@ -15,40 +15,44 @@ class Owner extends Eloquent {
 
     }
 
+    /*
+     * Queriess the Owner table for name information
+     * This is used in /book/list get method and /login post method
+     */
     public static function getName($query) {
 
         # If there is a query, search the library with that query
-        if($query) {
+        if ($query) {
 
-            $owners = Owner::where('user_id','=',$query)->first();
+            $owners = Owner::where('user_id', '=', $query)->first();
 
         }
-        # Otherwise, just fetch all books
+        # Otherwise, null
         else {
-            # Eager load tags and author
-            $owners=null;
+            $owners = null;
         }
-        if(!is_null($owners))
-        {
-            $name = $owners->first_name." ".$owners->last_name;
+        if (!is_null($owners)) {
+            $name = $owners->first_name . " " . $owners->last_name;
             return $name;
-        }
-        else{
-        return null;
+        } else {
+            return null;
         }
     }
 
-    public static function findOwnerInfoForUserId($query){
-        if($query) {
+    /*
+     *find the Owner table info for the specific user id
+     */
+    public static function findOwnerInfoForUserId($query) {
+        if ($query) {
 
-            $owner = Owner::where('user_id','=',$query)->first();
+            $owner = Owner::where('user_id', '=', $query)->first();
 
         }
         # Otherwise, just fetch all books
         else {
             # Eager load tags and author
-            $owner=null;
+            $owner = null;
         }
         return $owner;
     }
- }
+}

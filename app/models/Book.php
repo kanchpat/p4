@@ -3,11 +3,11 @@
 class Book extends Eloquent {
 
     # The guarded properties specifies which attributes should *not* be mass-assignable
-    protected $guarded = array('id', 'created_at', 'updated_at','owner_id','cover');
+    protected $guarded = array('id', 'created_at', 'updated_at', 'owner_id', 'cover');
 
     /**
-     * Book belongs to Author
-     * Define an inverse one-to-many relationship.
+     * Book belongs to user, this relation ship is one user to many books
+     * Book table has a field OWNER_ID to maintain the relationship
      */
     public function user() {
 
@@ -16,7 +16,9 @@ class Book extends Eloquent {
     }
 
     /**
-     * Books belong to many Tags
+     * Books belong to many Renters. A book could be rented multiple times
+     * This relationship is maintained through a Pivot table Book_Renter
+     * It has a Many to Many Relationship
      */
     public function renter() {
 
@@ -24,39 +26,29 @@ class Book extends Eloquent {
 
     }
 
-    public static function getBook($id){
+    /* Simple retrieval of book table based on the id
+     * Called from the msgs/list post method during the approval / reject process
+     */
+
+    public static function getBook($id) {
         $book = Book::find($id);
         return $book;
     }
 
-    public static function getRenter($book){
-        $id=$book->id;
-        $renter = Book::with('renter')
-            ->whereHas('renter' ,function($query) use($id){
-                $query->where('book_id','=',$id)
-                    ->where('return_ind','=','N');
-            })
-            ->first();
-        return $renter;
-    }
-
     /* Queries the book table for available books which are not owned by the current user
-  * and renter table for the same book  not rented out or initiated for rental
-  * Called from /book/rent get method
-  */
+     * and renter table for the same book  not rented out or initiated for rental
+     * Called from /book/rent get method
+     */
     public static function availableRentInfo($id) {
 
-        # If there is a query, search the library with that query
-        if($id) {
-            # Eager load tags and author
-            $rentInfo = Book::where('owner_id','!=',$id)
-                ->where('ready_to_swap','=','Y')
-                ->get();
+        if ($id) {
+            # Fetch book wihen the owner id is not current user id and ready to swap is set
+            $rentInfo = Book::where('owner_id', '!=', $id)->where('ready_to_swap', '=', 'Y')->get();
             return $rentInfo;
         }
-        # Otherwise, just fetch all books
+        # Otherwise, return false
         else {
-            return false;        # Eager load tags and author
+            return false;
         }
 
     }
@@ -67,21 +59,15 @@ class Book extends Eloquent {
      */
     public static function searchWithOwnerId($query) {
 
-        # If there is a query, search the library with that query
-        if($query) {
+        if ($query) {
 
-            # Eager load tags and author
-            $books = Book::where('owner_id','=',$query)->get();
+            # Retrieves the book when the owner id is specified. This is to display all the books you own
+            $books = Book::where('owner_id', '=', $query)->get();
 
-            # Note on what `use` means above:
-            # Closures may inherit variables from the parent scope.
-            # Any such variables must be passed to the `use` language construct.
-
-        }
-        # Otherwise, just fetch all books
+            }
+        # Otherwise, return null
         else {
-            # Eager load tags and author
-            $books = Book::all();
+            return null;
         }
 
         return $books;
@@ -89,63 +75,63 @@ class Book extends Eloquent {
 
 
     /*
-    * Delete book based on the id
-    */
+     * Delete book based on the id. Used the in /book/list post method when the delete option is selected
+     */
     public static function delete_book($value) {
 
         try {
             $book = Book::findOrFail($value);
         }
-        catch(exception $e) {
+        catch (exception $e) {
             return false;
         }
-
-        if(Renter::findAndDeleteAllRentersForBookId($book))
-        {
+        # Delete all records in Renter table
+        # Deletes records in message table through OnDelete Cascade specified during the migration
+        if (Renter::findAndDeleteAllRentersForBookId($book)) {
             Book::destroy($value);
             $book->save();
             return true;
-        }
-        else
+        } else
             return false;
     }
 
     /*Queries book for the id specified and updates the ready_to_swap indicator
-     * Used in /book/list post method.
-         * to update the indicator for availability of rental -
-         *                  ->check if the current value in the table and the user supplied value or the same
-         *                          ->do nothing
-         *                  -> if different, and if yes -> update and save
-         *                  -> if different, and if no ->
-         *                          ->check if the return indicator in rental table is "N", it means that it is rented out
-         *                          -> no change
-         *                          -> if the return indicator in rental table is "Y" or " " or no row available,
-         *                              update the indicator to "Y"
-         */
+     * Used in /book/list post method and msgs/list post method
+     * to update the indicator for availability of rental -
+     *                  ->check if the current value in the table and the user supplied value or the same
+     *                          ->do nothing
+     *                  -> if different, and if yes -> update and save
+     *                  -> if different, and if no ->
+     *                          ->check if the return indicator in rental table is "N", it means that it is rented out
+     *                          -> no change
+     *                          -> if the return indicator in rental table is "Y" or " " or no row available,
+     *                              update the indicator to "Y"
+     */
 
 
-    public static function changeRentForBookID($id,$futureValue) {
+    public static function changeRentForBookID($id, $futureValue) {
         $book = Book::find($id);
 
-        if($book->ready_to_swap == $futureValue)
+        #Checks if the current book value and future value are same
+        if ($book->ready_to_swap == $futureValue)
             return "Same Value";
 
-        if($book->ready_to_swap == 'Y')
-        {
-            $book->ready_to_swap=$futureValue;
+        #If the current ready to swap is "Y" , then sets it to "N"
+
+        if ($book->ready_to_swap == 'Y') {
+            $book->ready_to_swap = $futureValue;
             $book->save();
             return "Performed";
         }
-        else
-        {
+        else {
+            #Retrieves the Renters related to this book in Renters table
             $renters = Renter::getRentersForBook($book);
-            if(count($renters) > 0)
-            {
-                foreach($renters as $renter)
-                    if($renter->return_ind = 'N')
-                        return "Book Already rented out :".$book->title;
+            if (count($renters) > 0) {
+                foreach ($renters as $renter)
+                    if ($renter->return_ind = 'N') #Checks if the Return Indicator is "N" , this signifies this is currently on rent
+                        return "Book Already rented out :" . $book->title;
             }
-            $book->ready_to_swap=$futureValue;
+            $book->ready_to_swap = $futureValue;
             $book->save();
             return "Performed";
         }

@@ -18,11 +18,9 @@ No results
 @stop
 
 @section('form')
-{{ Form::open(array('url' =>
-'/book/list')) }}
+{{ Form::open(array('url' => '/book/list')) }}
 @if(sizeof($books) !=0)
-{{ Form::submit('Update Book Info',array('class'=>
-'btn btn-success')); }}
+{{ Form::submit('Update Book Info',array('class'=>'btn btn-success')); }}
 @endif
 @stop
 
@@ -32,73 +30,40 @@ My Library
 
 @section('tabledesc')
 @if(sizeof($books) != 0)
-You currently own the below books.
-<br>
-You can delete books if you no longer have the book or You can make the books available for rent
-<br>
-You can also edit the details of any book.
+    You currently own the below books.<br>
+    You can delete books if you no longer have the book or You can make the books available for rent<br>
+    You can also edit the details of any book.
 @else
-You currently do not own any books. Please add books from
-<a href='/book/create'>
-    Add Books
-</a>
+    You currently do not own any books. Please add books from <a href='/book/create'> Add Books </a>
 @endif
 @stop
 
 @section('tabledata')
-<th>
-    Delete
-</th>
-<th>
-    Title of the book
-</th>
-<th>
-    Available for Rent
-</th>
-<!--//
-<th>
-Edit
-</th>
--->
+    <th> Delete </th>
+    <th> Title of the book </th>
+    <th> Available for Rent </th>
+    <th> Edit </th>
 
 @foreach($books as $book)
 <tr>
     @if($book['ready_to_swap'] == 'Y')
-    <td>
-        {{ Form::checkbox('Delete[]',$book['id']) }}
-    </td>
+    <td> {{ Form::checkbox('Delete[]',$book['id']) }} </td>
     @else
-    <td>
-        {{ Form::checkbox('Delete[]', $book['id'],false,array('disabled') ) }}
-    </td>
+    <td> {{ Form::checkbox('Delete[]', $book['id'],false,array('disabled') ) }} </td>
     @endif
-    <td>
-        {{{ $book['title'] }}}
-    </td>
-    @if($book['ready_to_swap'] == 'Y')
-    <td>
-        {{ Form::select('AvailableforRent[]', array('Y'=>
-        "Available" ,"N"=>
-        "Not Available"),"Y") }}
-    </td>
+    <td> {{{ $book['title'] }}}  <br>
+         <img src='{{ $book['cover'] }}' >
+     </td>
+
+     @if($book['ready_to_swap'] == 'Y')
+    <td> {{ Form::select('AvailableforRent[]', array('Y'=> "Available" ,"N"=>"Not Available"),"Y") }} </td>
     @else
-    <td>
-        {{ Form::select('AvailableforRent[]', array('Y'=>
-        "Available" ,"N"=>
-        "Not Available"),"N") }}
-    </td>
+    <td> {{ Form::select('AvailableforRent[]', array('Y'=> "Available" ,"N"=>"Not Available"),"N") }} </td>
     @endif
     {{ Form::hidden('id[]', $book['id'] ) }}
-    <!--//
-  <td>
+    <td> <a href='/book/edit/{{$book['id']}}'> Edit </a> </td>
 
-  <a href='/book/edit/{{$book['id']}}'>
-  Edit
-  </a>
-  </td>
-  -->
 </tr>
 @endforeach
 {{ Form::close() }}
-
 @stop

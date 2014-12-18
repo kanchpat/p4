@@ -32,11 +32,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/config/mail.php" />
-        <option value="$PROJECT_DIR$/app/database/migrations/2014_12_11_221007_create_book_renter_table.php" />
-        <option value="$PROJECT_DIR$/app/views/pages/past_rental.blade.php" />
-        <option value="$PROJECT_DIR$/app/models/User.php" />
-        <option value="$PROJECT_DIR$/app/controllers/PasswordController.php" />
         <option value="$PROJECT_DIR$/app/controllers/ReminderController.php" />
         <option value="$PROJECT_DIR$/app/views/layouts/_table.blade.php" />
         <option value="$PROJECT_DIR$/app/views/pages/signup.blade.php" />
@@ -45,44 +40,49 @@
         <option value="$PROJECT_DIR$/app/views/includes/header.blade.php" />
         <option value="$PROJECT_DIR$/app/database/migrations/2014_12_11_224949_create_book_renters_table.php" />
         <option value="$PROJECT_DIR$/app/database/migrations/2014_11_28_213936_create_books_table.php" />
-        <option value="$PROJECT_DIR$/app/models/Helper.php" />
         <option value="$PROJECT_DIR$/app/views/pages/messages_address.blade.php" />
         <option value="$PROJECT_DIR$/app/views/emails/verify.blade.php" />
         <option value="$PROJECT_DIR$/app/routes.php" />
-        <option value="$PROJECT_DIR$/app/controllers/UserController.php" />
         <option value="$PROJECT_DIR$/app/database/migrations/2014_11_28_214026_create_renters_table.php" />
         <option value="$PROJECT_DIR$/app/database/migrations/2014_12_11_224949_create_book_renter_table.php" />
         <option value="$PROJECT_DIR$/public/css/bookswapper.css" />
         <option value="$PROJECT_DIR$/app/views/pages/remind.blade.php" />
         <option value="$PROJECT_DIR$/app/views/emails/auth/reminder.blade.php" />
         <option value="$PROJECT_DIR$/app/views/pages/reset.blade.php" />
-        <option value="$PROJECT_DIR$/app/controllers/RemindersController.php" />
-        <option value="$PROJECT_DIR$/app/controllers/BookController.php" />
         <option value="$PROJECT_DIR$/app/database/migrations/2014_12_13_022338_create_messages_table.php" />
-        <option value="$PROJECT_DIR$/app/controllers/RenterController.php" />
-        <option value="$PROJECT_DIR$/app/models/Owner.php" />
-        <option value="$PROJECT_DIR$/app/controllers/MessageController.php" />
-        <option value="$PROJECT_DIR$/app/models/Book.php" />
-        <option value="$PROJECT_DIR$/app/models/Message.php" />
-        <option value="$PROJECT_DIR$/app/models/Renter.php" />
-        <option value="$PROJECT_DIR$/app/views/pages/book_loan.blade.php" />
-        <option value="$PROJECT_DIR$/app/views/pages/book_google_add.blade.php" />
         <option value="$PROJECT_DIR$/app/views/pages/book_edit.blade.php" />
         <option value="$PROJECT_DIR$/app/views/pages/book_add.blade.php" />
         <option value="$PROJECT_DIR$/app/views/pages/about.blade.php" />
-        <option value="$PROJECT_DIR$/app/views/pages/book_rent.blade.php" />
-        <option value="$PROJECT_DIR$/app/views/pages/book_search.blade.php" />
         <option value="$PROJECT_DIR$/app/views/pages/contact.blade.php" />
         <option value="$PROJECT_DIR$/app/views/pages/index.blade.php" />
         <option value="$PROJECT_DIR$/app/views/pages/login.blade.php" />
         <option value="$PROJECT_DIR$/app/views/pages/main.blade.php" />
-        <option value="$PROJECT_DIR$/app/views/pages/messages_approval.blade.php" />
-        <option value="$PROJECT_DIR$/app/views/pages/messages_list.blade.php" />
-        <option value="$PROJECT_DIR$/app/views/pages/owner_info_add.blade.php" />
         <option value="$PROJECT_DIR$/app/start/global.php" />
         <option value="$PROJECT_DIR$/app/views/errors/403.php" />
         <option value="$PROJECT_DIR$/app/views/errors/404.php" />
         <option value="$PROJECT_DIR$/app/views/errors/500.php" />
+        <option value="$PROJECT_DIR$/app/views/pages/book_google_add.blade.php" />
+        <option value="$PROJECT_DIR$/app/views/pages/book_loan.blade.php" />
+        <option value="$PROJECT_DIR$/app/views/pages/book_rent.blade.php" />
+        <option value="$PROJECT_DIR$/app/views/pages/book_search.blade.php" />
+        <option value="$PROJECT_DIR$/app/views/pages/messages_approval.blade.php" />
+        <option value="$PROJECT_DIR$/app/views/pages/messages_list.blade.php" />
+        <option value="$PROJECT_DIR$/app/views/pages/owner_info_add.blade.php" />
+        <option value="$PROJECT_DIR$/app/models/User.php" />
+        <option value="$PROJECT_DIR$/app/controllers/ShowController.php" />
+        <option value="$PROJECT_DIR$/app/controllers/UserController.php" />
+        <option value="$PROJECT_DIR$/app/controllers/BaseController.php" />
+        <option value="$PROJECT_DIR$/app/controllers/BookController.php" />
+        <option value="$PROJECT_DIR$/app/controllers/IndexController.php" />
+        <option value="$PROJECT_DIR$/app/controllers/MessageController.php" />
+        <option value="$PROJECT_DIR$/app/controllers/OwnerController.php" />
+        <option value="$PROJECT_DIR$/app/controllers/RemindersController.php" />
+        <option value="$PROJECT_DIR$/app/controllers/RenterController.php" />
+        <option value="$PROJECT_DIR$/app/models/Book.php" />
+        <option value="$PROJECT_DIR$/app/models/Helper.php" />
+        <option value="$PROJECT_DIR$/app/models/Message.php" />
+        <option value="$PROJECT_DIR$/app/models/Owner.php" />
+        <option value="$PROJECT_DIR$/app/models/Renter.php" />
       </list>
     </option>
   </component>
@@ -220,65 +220,25 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="p4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="p4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="p4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="p4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="start" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="p4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="p4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="models" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="p4" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="p4" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -292,6 +252,7 @@
     <property name="SearchEverywhereHistory" value="&#10;//" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../foobooks" />
     <property name="FullScreen" value="false" />
+    <property name="LayoutCode.rearrangeEntriesPHP" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -356,7 +317,7 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24878837" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24878837" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35832083" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -412,49 +373,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/database/migrations/2014_11_27_014323_create_users_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="7" selection-start="221" selection-end="576" vertical-scroll-proportion="0.6390845" vertical-offset="28" max-vertical-offset="748" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/includes/head.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="573" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/includes/header.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="47" selection-start="1285" selection-end="1285" vertical-scroll-proportion="-13.076923" vertical-offset="0" max-vertical-offset="663" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/storage/logs/laravel.log">
-      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16998" column="122" selection-start="2236666" selection-end="2236666" vertical-scroll-proportion="0.33333334" vertical-offset="288859" max-vertical-offset="290479" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/database/migrations/2014_11_28_213936_create_books_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="58" selection-start="790" selection-end="790" vertical-scroll-proportion="0.44281524" vertical-offset="308" max-vertical-offset="884" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/Helper.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="5" selection-start="2970" selection-end="2970" vertical-scroll-proportion="1.0639431" vertical-offset="659" max-vertical-offset="1547">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/composer.lock">
-      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="30736" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/composer.json">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="782" />
@@ -543,86 +461,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/RemindersController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="38" selection-start="1633" selection-end="1633" vertical-scroll-proportion="0.8277087" vertical-offset="792" max-vertical-offset="1445">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/database/migrations/2014_12_13_022338_create_messages_table.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="26" column="35" selection-start="800" selection-end="800" vertical-scroll-proportion="-10.076923" vertical-offset="163" max-vertical-offset="816">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="107" column="27" selection-start="2861" selection-end="2861" vertical-scroll-proportion="0.3535109" vertical-offset="1673" max-vertical-offset="2992">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/Owner.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="44" selection-start="810" selection-end="810" vertical-scroll-proportion="0.041162226" vertical-offset="527" max-vertical-offset="1003">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/Message.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="0" selection-start="1057" selection-end="1057" vertical-scroll-proportion="-7.3846154" vertical-offset="522" max-vertical-offset="1955">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/RenterController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="22" selection-start="812" selection-end="812" vertical-scroll-proportion="12.884615" vertical-offset="930" max-vertical-offset="1343">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/Book.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="134" column="45" selection-start="3976" selection-end="3988" vertical-scroll-proportion="-5.4615383" vertical-offset="2136" max-vertical-offset="2703">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/MessageController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="128" column="0" selection-start="4573" selection-end="4573" vertical-scroll-proportion="1.5609756" vertical-offset="1344" max-vertical-offset="2346">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/Renter.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="136" column="72" selection-start="4245" selection-end="4245" vertical-scroll-proportion="0.65313655" vertical-offset="1958" max-vertical-offset="3485">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/routes.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="0" selection-start="1476" selection-end="1476" vertical-scroll-proportion="0.30864197" vertical-offset="386" max-vertical-offset="1173">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/pages/book_loan.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="5" selection-start="1370" selection-end="1370" vertical-scroll-proportion="1.8042328" vertical-offset="303" max-vertical-offset="1428">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/pages/book_google_add.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="0" selection-start="1037" selection-end="1037" vertical-scroll-proportion="0.9400353" vertical-offset="589" max-vertical-offset="1224">
           <folding />
         </state>
       </provider>
@@ -637,20 +478,6 @@
     <entry file="file://$PROJECT_DIR$/app/views/pages/book_add.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="31" column="0" selection-start="565" selection-end="565" vertical-scroll-proportion="0.8994709" vertical-offset="17" max-vertical-offset="629">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/pages/book_rent.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="0" selection-start="654" selection-end="654" vertical-scroll-proportion="0.8201058" vertical-offset="266" max-vertical-offset="833">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/pages/book_search.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="103" column="5" selection-start="1771" selection-end="1771" vertical-scroll-proportion="0.9400353" vertical-offset="1218" max-vertical-offset="1853">
           <folding />
         </state>
       </provider>
@@ -683,27 +510,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/pages/messages_approval.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="5" selection-start="960" selection-end="960" vertical-scroll-proportion="0.9171076" vertical-offset="517" max-vertical-offset="1139">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/pages/messages_list.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="72" column="5" selection-start="1268" selection-end="1268" vertical-scroll-proportion="0.9400353" vertical-offset="691" max-vertical-offset="1326">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/pages/owner_info_add.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="180" column="5" selection-start="2364" selection-end="2364" vertical-scroll-proportion="5.3968253" vertical-offset="0" max-vertical-offset="3162">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/errors/403.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="13" selection-start="13" selection-end="13" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="567">
@@ -718,27 +524,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/BookController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="7" selection-start="978" selection-end="1659" vertical-scroll-proportion="-0.43501806" vertical-offset="972" max-vertical-offset="3247">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/pages/about.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="116" column="0" selection-start="3145" selection-end="3145" vertical-scroll-proportion="0.9855596" vertical-offset="1426" max-vertical-offset="2074">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/pages/past_rental.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="0" selection-start="0" selection-end="691" vertical-scroll-proportion="0.65608466" vertical-offset="359" max-vertical-offset="952">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/errors/500.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="25" selection-start="25" selection-end="25" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="567">
@@ -749,6 +534,188 @@
     <entry file="file://$PROJECT_DIR$/app/views/errors/404.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="13" selection-start="13" selection-end="13" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="102">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/pages/about.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="116" column="0" selection-start="3145" selection-end="3145" vertical-scroll-proportion="0.8158845" vertical-offset="1520" max-vertical-offset="2074">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/pages/book_google_add.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="17" selection-start="805" selection-end="854" vertical-scroll-proportion="-14.807693" vertical-offset="244" max-vertical-offset="952">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/pages/book_loan.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="56" column="34" selection-start="1125" selection-end="1174" vertical-scroll-proportion="0.71252203" vertical-offset="548" max-vertical-offset="1190">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/pages/book_search.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="14" selection-start="1221" selection-end="1264" vertical-scroll-proportion="0.49029982" vertical-offset="640" max-vertical-offset="1258">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/pages/book_rent.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="697">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/pages/owner_info_add.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2074">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/pages/past_rental.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="37" selection-start="515" selection-end="515" vertical-scroll-proportion="0.41622576" vertical-offset="359" max-vertical-offset="952">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/pages/messages_list.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="59" column="5" selection-start="1231" selection-end="1231" vertical-scroll-proportion="0.9400353" vertical-offset="470" max-vertical-offset="1105">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/pages/messages_approval.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="40" selection-start="587" selection-end="587" vertical-scroll-proportion="0.61022925" vertical-offset="147" max-vertical-offset="782">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/HomeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="493">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/BaseController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="561">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/BookController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="189" column="1" selection-start="6105" selection-end="6105" vertical-scroll-proportion="0.915" vertical-offset="2847" max-vertical-offset="3315">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/IndexController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="1" selection-start="406" selection-end="406" vertical-scroll-proportion="0.8353511" vertical-offset="97" max-vertical-offset="544">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/MessageController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="125" column="1" selection-start="4994" selection-end="4994" vertical-scroll-proportion="0.915" vertical-offset="1759" max-vertical-offset="2227">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/OwnerController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="1" selection-start="1762" selection-end="1762" vertical-scroll-proportion="0.915" vertical-offset="722" max-vertical-offset="1190">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/RemindersController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="73" column="0" selection-start="1692" selection-end="1692" vertical-scroll-proportion="0.91767555" vertical-offset="862" max-vertical-offset="1343">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/RenterController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="0" selection-start="297" selection-end="297" vertical-scroll-proportion="0.425" vertical-offset="119" max-vertical-offset="1428">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/ShowController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="1" selection-start="506" selection-end="506" vertical-scroll-proportion="0.91767555" vertical-offset="216" max-vertical-offset="697">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/UserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="168" column="1" selection-start="4508" selection-end="4508" vertical-scroll-proportion="0.915" vertical-offset="2490" max-vertical-offset="2958">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/Book.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="139" column="1" selection-start="4686" selection-end="4686" vertical-scroll-proportion="0.915" vertical-offset="1997" max-vertical-offset="2465">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/Helper.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="83" column="2" selection-start="3384" selection-end="3384" vertical-scroll-proportion="0.915" vertical-offset="1045" max-vertical-offset="1513">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/Message.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="121" column="1" selection-start="3832" selection-end="3832" vertical-scroll-proportion="0.915" vertical-offset="1691" max-vertical-offset="2159">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/Owner.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="1" selection-start="1390" selection-end="1390" vertical-scroll-proportion="0.91767555" vertical-offset="590" max-vertical-offset="1071">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/Renter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="187" column="13" selection-start="5783" selection-end="5783" vertical-scroll-proportion="0.915" vertical-offset="2813" max-vertical-offset="3383">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="0" selection-start="1153" selection-end="1153" vertical-scroll-proportion="0.91767555" vertical-offset="386" max-vertical-offset="867">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/routes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="0" selection-start="1476" selection-end="1476" vertical-scroll-proportion="-0.4818402" vertical-offset="760" max-vertical-offset="1173">
           <folding />
         </state>
       </provider>

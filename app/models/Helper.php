@@ -1,7 +1,12 @@
 <?php
 
-class Helper{
+class Helper {
 
+    /* This below function is for future use.
+    * This is for validation of postal address with the USPS API
+     * Unfortunately I did not get the approval for running this .
+     * This is currently of no value
+    */
         public static function checkPostalAddress(Owner $owner){
             $url='http://production.shippingapis.com/ShippingAPITest.dll?API=Verify&XML=';
             /* create a dom document with encoding utf8 */
@@ -32,8 +37,11 @@ class Helper{
 
         }
 
-    public static function showGoogleBooks()
-    {
+    /*
+     * This takes the input from user for a title/author and sends through Google Books API
+     * Gathers Title/Author/ISBN and Cover from google and presents it to the user so that they can visually pick the books
+     */
+    public static function showGoogleBooks() {
         $title_request = Input::get('search_text');
         $client = new Google_Client();
         $client->setApplicationName("Client_Library_Examples");
@@ -51,36 +59,26 @@ class Helper{
             $books[$count]->title = $item->volumeInfo->getTitle();
             $books[$count]->author = $item->volumeInfo->getAuthors()[0];
 
-            foreach($item->volumeInfo->getIndustryIdentifiers() as $indInfo)
-            {
-                if($indInfo->getType() == "ISBN_13")
-                {
+            foreach($item->volumeInfo->getIndustryIdentifiers() as $indInfo)  {
+                if($indInfo->getType() == "ISBN_13") {
                     $books["$count"]->isbn = $indInfo->getIdentifier();
                 }
-                if($indInfo->getType() == "ISBN_10" and is_null($books["$count"]->isbn))
-                {
+                if($indInfo->getType() == "ISBN_10" and is_null($books["$count"]->isbn))  {
                     $books["$count"]->isbn = $indInfo->getIdentifier();
                 }
             }
-            if($item->volumeInfo->getImageLinks()['smallThumbnail'])
-            {
+
+            if($item->volumeInfo->getImageLinks()['smallThumbnail']) {
                 $books[$count]->cover =$item->volumeInfo->getImageLinks()['smallThumbnail'];
             }
-            else
-            {
+            else {
                 $books[$count]->cover = "http://covers.openlibrary.org/b/isbn/".$books[$count]->isbn."-S.jpg";
             }
             $count++;
         }
+
         return $books;
 
-    }
-
-    public static function multiexplode ($delimiters,$string,$limit) {
-
-        $ready = str_replace($delimiters, $delimiters[0], $string,$limit);
-        $launch = explode($delimiters[0], $ready);
-        return  $launch;
     }
 
  }

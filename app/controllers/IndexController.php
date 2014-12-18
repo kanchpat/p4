@@ -1,6 +1,7 @@
 <?php
 
-class IndexController extends BaseController {
+class IndexController extends BaseController
+{
 
     /**
      *
@@ -13,11 +14,11 @@ class IndexController extends BaseController {
     }
 
     /**
-     *
+     * Main Index page
      */
     public function getIndex() {
 
-        if(Auth::user())
+        if (Auth::user())
             return View::make('pages.main');
         return View::make('pages.index');
 

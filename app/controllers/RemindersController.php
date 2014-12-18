@@ -7,8 +7,7 @@ class RemindersController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function getRemind()
-	{
+	public function getRemind() {
 		return View::make('pages.remind');
 	}
 
@@ -17,11 +16,9 @@ class RemindersController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function postRemind()
-	{
+	public function postRemind() {
         $email = Input::get('email');
-		switch ($response = Password::remind(Input::only('email')))
-		{
+		switch ($response = Password::remind(Input::only('email'))){
 			case Password::INVALID_USER:
 
                 $msg='This email id  '.$email.' does not exist';
@@ -39,8 +36,7 @@ class RemindersController extends Controller {
 	 * @param  string  $token
 	 * @return Response
 	 */
-	public function getReset($token = null)
-	{
+	public function getReset($token = null) {
 		if (is_null($token)) App::abort(404);
 
 		return View::make('pages.reset')->with('token', $token);
@@ -51,8 +47,7 @@ class RemindersController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function postReset()
-	{
+	public function postReset() {
 		$credentials = Input::only(
 			'email', 'password', 'password_confirmation', 'token'
 		);
@@ -64,8 +59,7 @@ class RemindersController extends Controller {
 			$user->save();
 		});
 
-		switch ($response)
-		{
+		switch ($response) 	{
 			case Password::INVALID_PASSWORD:
 			case Password::INVALID_TOKEN:
 			case Password::INVALID_USER:

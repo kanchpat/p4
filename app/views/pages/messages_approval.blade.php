@@ -17,44 +17,23 @@ Address of the recipients who you have approved
 @stop
 
 @section('tabledata')
-<th>
-    Title of the book
-</th>
-<th>
-    Requester Name
-</th>
-<th>
-    Address
-</th>
-<th>
-    Email Id
-</th>
+<th> Title of the book </th>
+<th> Requester Name </th>
+<th>    Address </th>
+<th>     Email Id </th>
 @if(sizeof($owners)==0)
 No titles to report.
 @else
-@for($i =0; $i
-< count($owners) ; $i++)
+@for($i =0; $i < count($owners) ; $i++)
 <tr>
-    <td>
-        {{{ $books[$i]->
-        title }}}
+    <td> {{{ $books[$i]->title }}} <br>
+        <img src='{{ $book['cover'] }}' >
     </td>
-    <td>
-        {{{ $owners[$i]->
-        first_name . $owners[$i]->
-        last_name }}}
+    <td>  {{{ $owners[$i]->first_name . $owners[$i]-> last_name }}} </td>
+    <td>  {{{ $owners[$i]-> address1 . $owners[$i]-> address2 . }}} <br>
+        {{{$owners[$i]->city . $owners[$i]->state . $owners[$i]->zip_code }}}
     </td>
-    <td>
-        {{{ $owners[$i]->
-        address1 . $owners[$i]->
-        address2 . $owners[$i]->
-        city . $owners[$i]->
-        state . $owners[$i]->
-        zip_code }}}
-    </td>
-    <td>
-        {{{ $emails[$i]->
-        email }}}
+    <td>  {{{ $emails[$i]-> email }}}
     </td>
 </tr>
 @endfor

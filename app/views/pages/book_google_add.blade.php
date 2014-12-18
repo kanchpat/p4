@@ -12,11 +12,8 @@ Add a new book
 
 @section('form')
 
-{{ Form::open(array('action' =>
-'BookController@postCreate','files'=>
-true)) }}
-{{Form::submit('Add Book',array('class'=>
-'btn btn-success')); }}
+{{ Form::open(array('action' => 'BookController@postCreate','files'=> true)) }}
+{{Form::submit('Add Book',array('class'=>'btn btn-success')); }}
 @stop
 
 @section('tableheader')
@@ -26,39 +23,26 @@ Selection of books available for that Title. Can't find the book you have, try c
 @stop
 @section('tabledata')
 @if(isset($books))
-<th>
-    Title
-</th>
-<th>
-    Author
-</th>
-<th>
-    ISBN
-</th>
-<th>
-    Cover
-</th>
-<th>
-    Select for your library
-</th>
+<th> Title</th>
+<th> Author</th>
+<th> ISBN </th>
+<th> Cover</th>
+<th> Select for your library</th>
+@if($i=0)
+@endif
 @foreach($books as $book)
 <tr>
-    <td>
-        {{{ $book['title'] }}}
-    </td>
-    <td>
-        {{{ $book['author'] }}}
-    </td>
-    <td>
-        {{{ $book['isbn'] }}}
-    </td>
-    <td>
+    <td>{{{ $book['title'] }}}</td>
+    <td>{{{ $book['author'] }}}</td>
+    <td>{{{ $book['isbn'] }}} </td>
+    <td> <img src='{{ $book['cover'] }}' > </td>
+    <td> {{ Form::checkbox('select_book[]',$i++) }} </td>
 
-        <img src='{{ $book['cover'] }}' >
-    </td>
-    <td>
-        {{ Form::checkbox('select_book[]',$book) }}
-    </td>
+    {{ Form::hidden('title[]', $book['title'] ) }}
+    {{ Form::hidden('author[]', $book['author'] ) }}
+    {{ Form::hidden('isbn[]', $book['isbn'] ) }}
+    {{ Form::hidden('cover[]', $book['cover'] ) }}
+
 </tr>
 @endforeach
 @endif

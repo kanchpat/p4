@@ -45,34 +45,20 @@ Owner would be notified they would need to verify if the book has reached.
 
 @section('tabledata')
 
-<th>
-    Title of the book
-</th>
-<th>
-    Date Issued
-</th>
-<th>
-    Date Return
-</th>
-<th>
-    Initiate Return
-</th>
+<th> Title of the book </th>
+<th> Cover of the book</th>
+<th>   Date Issued </th>
+<th>    Date Return </th>
+<th>  Initiate Return </th>
 @foreach($renters as $renter)
 <tr>
-    @foreach($renter->
-    books as $book)
-    <td>
-        {{{ $book['title'] }}}
-    </td>
-    <td>
-        {{{ $renter['rental_date'] }}}
-    </td>
-    <td>
-        {{{ $renter['return_date'] }}}
-    </td>
-    <td>
-        {{ Form::checkbox('BookReturn[]',$renter['id']) }}
-        @endforeach
+    @foreach($renter-> books as $book)
+    <td> {{{ $book['title'] }}} </td>
+    <td> <img src='{{ $book['cover'] }}' > </td>
+    <td> {{{ $renter['rental_date'] }}} </td>
+    <td> {{{ $renter['return_date'] }}} </td>
+    <td> {{ Form::checkbox('BookReturn[]',$renter['id']) }} </td>
+    @endforeach
 </tr>
 @endforeach
 {{ Form::close() }}

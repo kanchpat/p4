@@ -98,10 +98,9 @@ class UserController extends BaseController {
 
         if( Input::get('action') == 'Submit')
         {
-        $credentials = [
-            'email' => Input::get('email'),
-            'password' => Input::get('password'),
-            'confirmed' => '1'];
+        $credentials = [ 'email' => Input::get('email'),
+                        'password' => Input::get('password'),
+                        'confirmed' => '1'];
 
         # Note we don't have to hash the password before attempting to auth - Auth::attempt will take care of that for us
         if (Auth::attempt($credentials, $remember = false)) {
@@ -114,7 +113,6 @@ class UserController extends BaseController {
              return Redirect::to('/login')
                 ->with('flash_message', 'Log in failed; please try again.')
                 ->withInput();
-   //         return View::make('pages.login')->with('flash_message','Email Id / Password incorrect');
              }
         }
         else

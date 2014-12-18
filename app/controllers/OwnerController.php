@@ -1,6 +1,7 @@
 <?php
 
-class OwnerController extends BaseController {
+class OwnerController extends BaseController
+{
 
     /**
      *
@@ -19,7 +20,6 @@ class OwnerController extends BaseController {
     public function getOwner() {
 
         return View::make('pages.owner_info_add');
-
     }
 
     /**
@@ -35,7 +35,7 @@ class OwnerController extends BaseController {
             'address1' => 'required|min:4|alpha_num_spaces',
             'address2' => 'min:4|alpha_dash',
             'city' => 'required|min:4|alpha_spaces',
-            'zip_code' => 'required|max:99999|numeric',
+            'zip_code' => 'required|max:99999|numeric'
 
         );
 
@@ -43,30 +43,23 @@ class OwnerController extends BaseController {
         $validator = Validator::make(Input::all(), $rules);
 
         # Step 3
-        if($validator->fails()) {
+        if ($validator->fails()) {
 
-            return Redirect::to('/owner/create')
-                ->with('flash_message', 'Entries failed; please fix the errors listed below.')
-                ->withInput()
-                ->withErrors($validator);
+            return Redirect::to('/owner/create')->with('flash_message', 'Entries failed; please fix the errors listed below.')->withInput()->withErrors($validator);
         }
 
         $owner = new Owner();
         $owner->fill(Input::all());
 
-     if(Helper::checkPostalAddress($owner))
-       {
+        #This is a dummy function it always returns true as of now
+        if (Helper::checkPostalAddress($owner)) {
             $owner->user_id = Auth::user()->id;
             # Magic: Eloquent
             $owner->save();
             return Redirect::to('/main')->with('flash_message', 'Your address and name details have been added!');
         }
-        else
-        {
-            return Redirect::to('/owner/create')
-                ->with('flash_message', 'Address incorrect')
-                ->withInput()
-                ->withErrors($validator);
+        else {
+            return Redirect::to('/owner/create')->with('flash_message', 'Address incorrect')->withInput()->withErrors($validator);
         }
     }
- }
+}
