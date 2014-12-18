@@ -12,20 +12,16 @@ Add a new book
 
 
 @section('errormsg')
-@foreach($errors->
-all() as $message)
+@foreach($errors->all() as $message)
 {{ $message }}
 @endforeach
 @stop
 
 
 @section('form')
-{{ Form::open(array('action' =>
-'BookController@showGoogleBooks','files'=>
-true)) }}
+{{ Form::open(array('action' =>'BookController@showGoogleBooks','files'=>true)) }}
 {{ Form::label('search books','Search Book') }}
 {{ Form::text('search_text'); }}
-{{ Form::submit('Find Book with Title/Author',array('class'=>
-'btn btn-success')); }}
+{{ Form::submit('Find Book with Title/Author',array('class'=>'btn btn-success')); }}
 {{ Form::close() }}
 @stop

@@ -23,10 +23,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="app.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="app.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/config/local/app.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="19" selection-start="437" selection-end="441" vertical-scroll-proportion="0.44973546" vertical-offset="0" max-vertical-offset="567">
+            <state line="15" column="19" selection-start="437" selection-end="441" vertical-scroll-proportion="-9.807693" vertical-offset="0" max-vertical-offset="408">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="book_add.blade.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/views/pages/book_add.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="0" selection-start="168" selection-end="168" vertical-scroll-proportion="0.29982364" vertical-offset="0" max-vertical-offset="567">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BookController.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/BookController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="189" column="1" selection-start="6105" selection-end="6105" vertical-scroll-proportion="-72.73077" vertical-offset="1322" max-vertical-offset="3315">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="routes.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/routes.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="20" column="0" selection-start="638" selection-end="638" vertical-scroll-proportion="-0.65384614" vertical-offset="170" max-vertical-offset="1190">
               <folding />
             </state>
           </provider>
@@ -53,7 +80,6 @@
         <option value="$PROJECT_DIR$/app/views/emails/auth/reminder.blade.php" />
         <option value="$PROJECT_DIR$/app/database/migrations/2014_12_13_022338_create_messages_table.php" />
         <option value="$PROJECT_DIR$/app/views/pages/book_edit.blade.php" />
-        <option value="$PROJECT_DIR$/app/views/pages/book_add.blade.php" />
         <option value="$PROJECT_DIR$/app/views/pages/about.blade.php" />
         <option value="$PROJECT_DIR$/app/views/pages/index.blade.php" />
         <option value="$PROJECT_DIR$/app/start/global.php" />
@@ -82,17 +108,18 @@
         <option value="$PROJECT_DIR$/app/models/Message.php" />
         <option value="$PROJECT_DIR$/app/models/Owner.php" />
         <option value="$PROJECT_DIR$/app/models/Renter.php" />
-        <option value="$PROJECT_DIR$/app/routes.php" />
         <option value="$PROJECT_DIR$/app/views/pages/main.blade.php" />
         <option value="$PROJECT_DIR$/app/views/layouts/_form.blade.php" />
         <option value="$PROJECT_DIR$/app/views/pages/contact.blade.php" />
         <option value="$PROJECT_DIR$/app/views/pages/reset.blade.php" />
         <option value="$PROJECT_DIR$/app/views/pages/signup.blade.php" />
         <option value="$PROJECT_DIR$/app/views/layouts/_main.blade.php" />
-        <option value="$PROJECT_DIR$/app/views/layouts/_master.blade.php" />
         <option value="$PROJECT_DIR$/app/views/layouts/_table.blade.php" />
         <option value="$PROJECT_DIR$/app/views/pages/login.blade.php" />
         <option value="$PROJECT_DIR$/readme.md" />
+        <option value="$PROJECT_DIR$/app/routes.php" />
+        <option value="$PROJECT_DIR$/app/views/pages/book_add.blade.php" />
+        <option value="$PROJECT_DIR$/app/views/layouts/_master.blade.php" />
       </list>
     </option>
   </component>
@@ -296,6 +323,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="includes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="p4" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="p4" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -556,11 +601,6 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="561" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/BookController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="189" column="1" selection-start="6105" selection-end="6105" vertical-scroll-proportion="0.915" vertical-offset="2847" max-vertical-offset="3315" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/IndexController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="26" column="1" selection-start="406" selection-end="406" vertical-scroll-proportion="0.8353511" vertical-offset="97" max-vertical-offset="544" />
@@ -626,11 +666,6 @@
         <state line="48" column="0" selection-start="1153" selection-end="1153" vertical-scroll-proportion="0.91767555" vertical-offset="386" max-vertical-offset="867" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/routes.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="118" column="3" selection-start="3505" selection-end="3505" vertical-scroll-proportion="-34.615383" vertical-offset="953" max-vertical-offset="1955" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/pages/main.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="25" column="40" selection-start="487" selection-end="487" vertical-scroll-proportion="-11.653846" vertical-offset="122" max-vertical-offset="561" />
@@ -644,11 +679,6 @@
     <entry file="file://$PROJECT_DIR$/app/views/pages/about.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="116" column="0" selection-start="3145" selection-end="3145" vertical-scroll-proportion="-75.84615" vertical-offset="0" max-vertical-offset="2074" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/pages/book_add.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="0" selection-start="565" selection-end="565" vertical-scroll-proportion="-11.153846" vertical-offset="237" max-vertical-offset="629" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/pages/book_edit.blade.php">
@@ -684,11 +714,6 @@
     <entry file="file://$PROJECT_DIR$/app/views/pages/signup.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="19" selection-start="129" selection-end="129" vertical-scroll-proportion="-5.230769" vertical-offset="0" max-vertical-offset="833" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/layouts/_master.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="0" selection-start="177" selection-end="177" vertical-scroll-proportion="-7.3846154" vertical-offset="46" max-vertical-offset="833" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/layouts/_table.blade.php">
@@ -730,7 +755,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/config/local/app.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="19" selection-start="437" selection-end="441" vertical-scroll-proportion="0.44973546" vertical-offset="0" max-vertical-offset="567">
+        <state line="15" column="19" selection-start="437" selection-end="441" vertical-scroll-proportion="-9.807693" vertical-offset="0" max-vertical-offset="408">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/routes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="0" selection-start="638" selection-end="638" vertical-scroll-proportion="-0.65384614" vertical-offset="170" max-vertical-offset="1190">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/BookController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="189" column="1" selection-start="6105" selection-end="6105" vertical-scroll-proportion="-72.73077" vertical-offset="1322" max-vertical-offset="3315">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/layouts/_master.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="0" selection-start="176" selection-end="176" vertical-scroll-proportion="0.38977072" vertical-offset="0" max-vertical-offset="935">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/pages/book_add.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="0" selection-start="168" selection-end="168" vertical-scroll-proportion="0.29982364" vertical-offset="0" max-vertical-offset="567">
           <folding />
         </state>
       </provider>
